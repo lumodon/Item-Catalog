@@ -1,0 +1,20 @@
+#!/usr/bin/env python
+from database import Base, Restaurant, MenuItem, session
+from flask import url_for
+from flask_app import app
+from routes import *
+from dotenv import load_dotenv
+
+# Utilize .env environment variables for GoogleAPI
+# Citation: July 28th, 2019. https://pypi.org/project/python-dotenv/
+load_dotenv()
+
+
+with app.test_request_context():
+    print(url_for('Landing'))
+    print(url_for('RestaurantMenu', restaurant_id=1))
+
+
+if __name__ == '__main__':
+    app.debug = True
+    app.run(host='0.0.0.0', port=5001)

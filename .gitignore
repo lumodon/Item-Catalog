@@ -1,0 +1,5 @@
+_DEV/
+.env
+*.pyc
+database/restaurantmenu.db-journal
+database/restaurantmenu.db
