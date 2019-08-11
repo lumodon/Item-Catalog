@@ -1,113 +1,35 @@
+<!-- Starter html (heavily modified) used from Udacity lesson 4 -->
+<!-- Citation below: -->
 <!-- saved from url=(0076)https://s3-us-west-2.amazonaws.com/gae-supplemental-media/menuhtml/menu.html -->
 <html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-    <style>
-        .container {
-            width: 20vw;
-            min-width: 400px;
-            margin: 0 auto 15px auto;
-            padding-top: 15px;
-            border-bottom: 1px solid gray;
-        }
-        .price-edit {
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-start;
-            align-items: center;
-            font-size: 1.15em;
-        }
-        .price-edit input {
-            height: 1.6em;
-        }
-        .content {
-            display: flex;
-            flex-direction: column;
-        }
-        textarea, input {
-            font-size: 1.15em;
-        }
-        .controls {
-            padding-top: 5px;
-        }
-    </style>
-</head>
-<body>
-    <h1>{{restaurant.name}}</h1>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+    <link rel="stylesheet" href="edit.css">
+  </head>
+  <body>
+    <h1>{{ restaurant.name }}</h1>
     {% for i in items %}
-        <div class="container">
-            <div class="content"  id="content-{{i.id}}" data-id="{{i.id}}">
-                <input class="value name" type="text" value="{{i.name}}"></input>
-                <textarea
-                    rows="15"
-                    class="value description"
-                    data-description="{{i.description}}">
-                </textarea>
-                <div class="price-edit">
-                    <p>$</p>
-                    <input
-                        type="text"
-                        class="value price"
-                        value="{{i.price }}">
-                    </input>
-                </div>
-            </div>
-            <div class="controls">
-                <a
-                    class="save-link"
-                    data-id="{{i.id}}"
-                    href="javascript:void(0)">
-                    Save
-                </a>
-            </div>
+    <div class="container">
+      <div class="content" id="content-{{ i.id }}" data-id="{{ i.id }}">
+        <input class="value name" type="text" value="{{ i.name }}" />
+        <textarea
+          rows="15"
+          class="value description"
+          data-description="{{ i.description }}"
+        >
+        </textarea>
+        <div class="price-edit">
+          <p>$</p>
+          <input type="text" class="value price" value="{{ i.price }}" />
         </div>
+      </div>
+      <div class="controls">
+        <a class="save-link" data-id="{{ i.id }}" href="javascript:void(0)">
+          Save
+        </a>
+      </div>
+    </div>
     {% endfor %}
-</body>
-<script>
-  function validateContent(container) {
-    for(const valEle of container.querySelectorAll('.value')) {
-      if(!valEle.value) {
-        return false
-      }
-      // TODO: Other validations here
-    }
-  }
-
-  function fetchEdit(payload) {
-    fetch('', {
-      'method': 'POST',
-      'headers': {
-        'content-type': 'application/json'
-      },
-      'body': JSON.stringify(payload)
-    })
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    Array.from(document.querySelectorAll('.description'))
-      .forEach(desc => {
-        desc.value = desc.dataset['description']
-      })
-
-    Array.from(document.querySelectorAll('.content .save-link'))
-      .forEach(link => {
-        link.addEventListener('click', event => {
-          event.preventDefault()
-          const id = event.target.dataset['id']
-          const container = document.querySelector(`#content-${id}`)
-          if(validateContent(container)) {
-            fetchEdit({
-              id,
-              ...['description', 'price', 'name']
-                .reduce((acc, type) => {
-                  acc[type] = container.querySelector(`.${type}`).value
-                  return acc
-                }, {}),
-            })
-          }
-        })
-      })
-  })
-
-</script>
+  </body>
+  <script src="edit.js"></script>
 </html>

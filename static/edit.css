@@ -1,0 +1,28 @@
+.container {
+  width: 20vw;
+  min-width: 400px;
+  margin: 0 auto 15px auto;
+  padding-top: 15px;
+  border-bottom: 1px solid gray;
+}
+.price-edit {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 1.15em;
+}
+.price-edit input {
+  height: 1.6em;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+}
+textarea,
+input {
+  font-size: 1.15em;
+}
+.controls {
+  padding-top: 5px;
+}
