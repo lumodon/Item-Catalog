@@ -1,3 +1,6 @@
+html {
+  font-family: monospace;
+}
 .hidden {
   display: none;
 }
@@ -14,6 +17,7 @@
   justify-content: flex-start;
   align-items: center;
   font-size: 1.15em;
+  font-family: monospace;
 }
 .price-edit input {
   height: 1.6em;
@@ -25,6 +29,7 @@
 textarea,
 input {
   font-size: 1.15em;
+  font-family: monospace;
 }
 .controls {
   padding-top: 5px;
@@ -35,14 +40,27 @@ input {
 }
 #toaster {
   display: flex;
-  position: absolute;
-  width: 800px;
-  height: 400px;
+  position: fixed;
+  width: 500px;
+  height: 250px;
   text-align: center;
   justify-content: center;
   align-items: center;
-  left: calc(50vw - 400px);
+  z-index: 10;
+  pointer-events: none;
+  left: calc(50vw - 250px);
+  font-size: 2em;
+  text-shadow: 1px 1px 1px #bbb,
+               -1px 1px 1px #bbb,
+               1px -1px 1px #bbb,
+               -1px -1px 1px #bbb;
+  background-color: #ffffffb5;
+}
+.toaster-offscreen {
   top: 100vh;
+}
+.toaster-shown {
+  top: calc(100vh - 270px);
 }
 .slidein {
   animation-name: slidein;
@@ -51,5 +69,5 @@ input {
 }
 @keyframes slidein {
   from { top: 100vh; }
-  to { top: calc(100vh - 400px); }
+  to { top: calc(100vh - 270px); }
 }

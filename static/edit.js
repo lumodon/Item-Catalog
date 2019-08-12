@@ -46,11 +46,12 @@ function toasterMessage({type, payload}) {
     console.trace(err)
   }
   const toasterEle = document.querySelector('#toaster')
-  toasterEle.classList.remove('hidden')
-  toasterEle.classList.add('slidein')
+  toasterEle.classList.remove('hidden', 'toaster-offscreen')
+  toasterEle.classList.add('slidein', 'toaster-shown')
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  toasterMessage({type: 'notification', payload: {message: 'hello'}})
   Array.from(document.querySelectorAll('.description')).forEach(desc => {
     desc.value = desc.dataset['description']
   })
