@@ -1,3 +1,6 @@
+.hidden {
+  display: none;
+}
 .container {
   width: 20vw;
   min-width: 400px;
@@ -25,4 +28,28 @@ input {
 }
 .controls {
   padding-top: 5px;
+}
+.warning {
+  color: red;
+  font-weight: bolder;
+}
+#toaster {
+  display: flex;
+  position: absolute;
+  width: 800px;
+  height: 400px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  left: calc(50vw - 400px);
+  top: 100vh;
+}
+.slidein {
+  animation-name: slidein;
+  animation-duration: 2s;
+  animation-delay: 0s;
+}
+@keyframes slidein {
+  from { top: 100vh; }
+  to { top: calc(100vh - 400px); }
 }

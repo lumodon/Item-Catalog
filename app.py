@@ -5,6 +5,7 @@ from flask_app import app
 from routes import *
 from dotenv import load_dotenv
 
+
 # Utilize .env environment variables for GoogleAPI
 # Citation: July 28th, 2019. https://pypi.org/project/python-dotenv/
 load_dotenv()

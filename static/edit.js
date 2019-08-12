@@ -26,18 +26,28 @@ function fetchEdit(payload) {
 }
 
 function toasterMessage({type, payload}) {
+  const toasterText = document.querySelector('#toaster p')
   const sCase = {
     error: () => {
-
+      toasterText.classList.add('warning')
+      toasterText.innerText = `Error: ${payload.error}`
     },
     notification: () => {
-
+      toasterText.innerText = payload.message
     },
     default: () => {
-      
+      toasterText.innerText = ''
+      throw new Error('Error - invalid toaster message case')
     }
   }
-  sCase[type] && sCase[type]() || sCase.default()
+  try {
+    sCase[type]()
+  } catch(err) {
+    console.trace(err)
+  }
+  const toasterEle = document.querySelector('#toaster')
+  toasterEle.classList.remove('hidden')
+  toasterEle.classList.add('slidein')
 }
 
 document.addEventListener('DOMContentLoaded', () => {
