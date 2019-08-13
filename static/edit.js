@@ -1,3 +1,7 @@
+import Toaster from '/static/toaster.js'
+
+const TOASTER_DURATION = 3000
+
 function validateContent(container) {
   const validateWithError = err => ({
     valid: false,
@@ -25,36 +29,15 @@ function fetchEdit(payload) {
   })
 }
 
-/**
- * Toaster
- * Example: toasterMessage({type: 'notification', payload: {message: 'hello'}})
- */
-function toasterMessage({type, payload}) {
-  const toasterText = document.querySelector('.toaster p')
-  const sCase = {
-    error: () => {
-      toasterText.classList.add('warning')
-      toasterText.innerText = `Error: ${payload.error}`
-    },
-    notification: () => {
-      toasterText.innerText = payload.message
-    },
-    default: () => {
-      toasterText.innerText = ''
-      throw new Error('Error - invalid toaster message case')
-    }
-  }
-  try {
-    sCase[type]()
-  } catch(err) {
-    console.trace(err)
-  }
-  const toasterEle = document.querySelector('.toaster')
-  toasterEle.classList.remove('hidden', 'toaster-offscreen')
-  toasterEle.classList.add('slidein', 'toaster-shown')
-}
-
 document.addEventListener('DOMContentLoaded', () => {
+  const toaster = new Toaster({
+    toasterElement: document.querySelector('.toaster'),
+    duration: TOASTER_DURATION, /* TODO: need SASS for SSOT */
+  })
+  toaster.pushMessage({type: 'notification', payload: {message: 'Test 1'}})
+  toaster.pushMessage({type: 'notification', payload: {message: 'Test 2'}})
+  toaster.pushMessage({type: 'notification', payload: {message: 'Test 3'}})
+  toaster.pushMessage({type: 'notification', payload: {message: 'Test 4'}})
   Array.from(document.querySelectorAll('.description')).forEach(desc => {
     desc.value = desc.dataset['description']
   })
@@ -74,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }, {}),
         })
       } else {
-        toasterMessage({type: 'error', payload: validation})
+        toaster.pushMessage({type: 'error', payload: validation})
       }
     })
   })

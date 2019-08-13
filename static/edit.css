@@ -65,10 +65,19 @@ input {
 }
 .slidein {
   animation-delay: 0s;
-  animation-duration: 2s;
+  animation-duration: 1s; /* TODO: need SASS for SSOT */
   animation-name: slidein;
+}
+.slideout {
+  animation-delay: 0s;
+  animation-duration: 500ms; /* TODO: need SASS for SSOT */
+  animation-name: slideout;
 }
 @keyframes slidein {
   from { top: 100vh; }
   to { top: calc(100vh - 270px); }
+}
+@keyframes slideout {
+  from { top: calc(100vh - 270px); }
+  to { top: 100vh; }
 }
