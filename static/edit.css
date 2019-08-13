@@ -1,5 +1,5 @@
 html {
-  font-family: monospace;
+  font-family: "Lucida Console", Monaco, monospace;
 }
 .hidden {
   display: none;
@@ -15,7 +15,7 @@ html {
   align-items: center;
   display: flex;
   flex-direction: row;
-  font-family: monospace;
+  font-family: "Lucida Console", Monaco, monospace;
   font-size: 1.15em;
   justify-content: flex-start;
 }
@@ -28,7 +28,7 @@ html {
 }
 textarea,
 input {
-  font-family: monospace;
+  font-family: "Lucida Console", Monaco, monospace;
   font-size: 1.15em;
 }
 .controls {
@@ -36,32 +36,26 @@ input {
 }
 .toaster {
   align-items: center;
-  background-color: #ffffffb5;
-  color: yellow;
+  background-color: #DCECF67F;
+  border-radius: 5px;
+  border: 2px solid #D7ECF57F;
+  color: #2D6183FF;
   display: flex;
+  font-family: "Lucida Console", Monaco, monospace;
   font-size: 2em;
-  height: 250px;
   justify-content: center;
-  left: calc(50vw - 250px);
   pointer-events: none;
   position: fixed;
   text-align: center;
-  text-shadow: 1px 1px 1px #bbb,
-               -1px 1px 1px #bbb,
-               1px -1px 1px #bbb,
-               -1px -1px 1px #bbb;
-  width: 500px;
   z-index: 10;
 }
 .warning {
-  color: red;
-  font-weight: bolder;
+  background-color: rgba(246, 220, 220, 127);
+  border: 2px solid rgba(245, 215, 215, 127);
+  color: rgba(194, 67, 67, 255);
 }
 .toaster-offscreen {
   top: 100vh;
-}
-.toaster-shown {
-  top: calc(100vh - 270px);
 }
 .slidein {
   animation-delay: 0s;
@@ -72,12 +66,4 @@ input {
   animation-delay: 0s;
   animation-duration: 500ms; /* TODO: need SASS for SSOT */
   animation-name: slideout;
-}
-@keyframes slidein {
-  from { top: 100vh; }
-  to { top: calc(100vh - 270px); }
-}
-@keyframes slideout {
-  from { top: calc(100vh - 270px); }
-  to { top: 100vh; }
 }
