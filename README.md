@@ -5,11 +5,11 @@
 ## Installation and Setup
 
 Prerequisites:  
-For the following applications, ensure they are accessible from your PATH variable  
+Ensure the following applications are accessible from your PATH variable  
 1. First you'll need VirtualBox installed on your machine. Find your operating system and install [Virtual Box](https://www.virtualbox.org/wiki/Downloads)
 2. Next you'll need to install [Vagrant](https://www.vagrantup.com/downloads.html)
 
-Then follow these instructions:
+Next, run these commands in your terminal  
 
 ```sh
  $ git clone https://github.com/udacity/fullstack-nanodegree-vm.git
@@ -24,16 +24,24 @@ for development on your local machine you can install python 2.7.16 [here](https
 Continue running the following commands:  
   
 ```sh
- $ git clone https://github.com/lumodon/item-catalog.git catalog
  $ vagrant ssh
- $ cd /vagrant/catalog
+ $ git clone https://github.com/lumodon/item-catalog.git /vagrant/lumodon-catalog
+ $ cd $_
  $ ./init.sh
- $ python application.py
+```
+
+* Follow directions provided in email / project submission notes!  
+    1. Download static assets from a file-share url that is purposefully kept hidden from version tracking  
+    2. modify the .env file to contain proper environment variable values.  
+
+Finally run the application:  
+  
+```sh
+ $ python app.py
 ```
 ## Architecture
 
-`application.py` is the starting point for the flask app  
-  
+`app.py` is the starting point for the app  
 
 ## References Used
 

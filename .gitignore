@@ -3,3 +3,4 @@ _DEV/
 *.pyc
 database/restaurantmenu.db-journal
 database/restaurantmenu.db
+static/favicon.ico
