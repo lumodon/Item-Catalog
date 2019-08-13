@@ -36,7 +36,10 @@ document.addEventListener('DOMContentLoaded', () => {
   })
   toaster.pushMessage({type: 'notification', payload: {message: 'Test 1'}})
   toaster.pushMessage({type: 'notification', payload: {message: 'Test 2'}})
-  toaster.pushMessage({type: 'notification', payload: {message: 'Test 3'}})
+  toaster.pushMessage({type: 'error', payload: {
+    error: 'Interrupt Test 3',
+    interrupt: true,
+  }})
   toaster.pushMessage({type: 'notification', payload: {message: 'Test 4'}})
   Array.from(document.querySelectorAll('.description')).forEach(desc => {
     desc.value = desc.dataset['description']
