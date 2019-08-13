@@ -25,8 +25,12 @@ function fetchEdit(payload) {
   })
 }
 
+/**
+ * Toaster
+ * Example: toasterMessage({type: 'notification', payload: {message: 'hello'}})
+ */
 function toasterMessage({type, payload}) {
-  const toasterText = document.querySelector('#toaster p')
+  const toasterText = document.querySelector('.toaster p')
   const sCase = {
     error: () => {
       toasterText.classList.add('warning')
@@ -45,13 +49,12 @@ function toasterMessage({type, payload}) {
   } catch(err) {
     console.trace(err)
   }
-  const toasterEle = document.querySelector('#toaster')
+  const toasterEle = document.querySelector('.toaster')
   toasterEle.classList.remove('hidden', 'toaster-offscreen')
   toasterEle.classList.add('slidein', 'toaster-shown')
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  toasterMessage({type: 'notification', payload: {message: 'hello'}})
   Array.from(document.querySelectorAll('.description')).forEach(desc => {
     desc.value = desc.dataset['description']
   })

@@ -5,19 +5,19 @@ html {
   display: none;
 }
 .container {
-  width: 20vw;
-  min-width: 400px;
-  margin: 0 auto 15px auto;
-  padding-top: 15px;
   border-bottom: 1px solid gray;
+  margin: 0 auto 15px auto;
+  min-width: 400px;
+  padding-top: 15px;
+  width: 20vw;
 }
 .price-edit {
+  align-items: center;
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  font-size: 1.15em;
   font-family: monospace;
+  font-size: 1.15em;
+  justify-content: flex-start;
 }
 .price-edit input {
   height: 1.6em;
@@ -28,33 +28,34 @@ html {
 }
 textarea,
 input {
-  font-size: 1.15em;
   font-family: monospace;
+  font-size: 1.15em;
 }
 .controls {
   padding-top: 5px;
 }
-.warning {
-  color: red;
-  font-weight: bolder;
-}
-#toaster {
-  display: flex;
-  position: fixed;
-  width: 500px;
-  height: 250px;
-  text-align: center;
-  justify-content: center;
+.toaster {
   align-items: center;
-  z-index: 10;
-  pointer-events: none;
-  left: calc(50vw - 250px);
+  background-color: #ffffffb5;
+  color: yellow;
+  display: flex;
   font-size: 2em;
+  height: 250px;
+  justify-content: center;
+  left: calc(50vw - 250px);
+  pointer-events: none;
+  position: fixed;
+  text-align: center;
   text-shadow: 1px 1px 1px #bbb,
                -1px 1px 1px #bbb,
                1px -1px 1px #bbb,
                -1px -1px 1px #bbb;
-  background-color: #ffffffb5;
+  width: 500px;
+  z-index: 10;
+}
+.warning {
+  color: red;
+  font-weight: bolder;
 }
 .toaster-offscreen {
   top: 100vh;
@@ -63,9 +64,9 @@ input {
   top: calc(100vh - 270px);
 }
 .slidein {
-  animation-name: slidein;
-  animation-duration: 2s;
   animation-delay: 0s;
+  animation-duration: 2s;
+  animation-name: slidein;
 }
 @keyframes slidein {
   from { top: 100vh; }
