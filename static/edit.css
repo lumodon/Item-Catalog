@@ -36,10 +36,10 @@ input {
 }
 .toaster {
   align-items: center;
-  background-color: #DCECF67F;
+  background-color: #DCECF6D0;
   border-radius: 5px;
-  border: 2px solid #D7ECF57F;
-  color: #2D6183FF;
+  border: 2px solid #D7ECF5D0;
+  color: #2D6183;
   display: flex;
   font-family: "Lucida Console", Monaco, monospace;
   font-size: 2em;
@@ -50,20 +50,20 @@ input {
   z-index: 10;
 }
 .warning {
-  background-color: rgba(246, 220, 220, 127);
-  border: 2px solid rgba(245, 215, 215, 127);
-  color: rgba(194, 67, 67, 255);
+  background-color: #F5D7D7D0;
+  border: 2px solid #F5D7D7D0;
+  color: #C24343;
 }
 .toaster-offscreen {
   top: 100vh;
 }
 .slidein {
   animation-delay: 0s;
-  animation-duration: 1s; /* TODO: need SASS for SSOT */
+  animation-duration: 300ms; /* TODO: need SASS for SSOT */
   animation-name: slidein;
 }
 .slideout {
   animation-delay: 0s;
-  animation-duration: 500ms; /* TODO: need SASS for SSOT */
+  animation-duration: 1s; /* TODO: need SASS for SSOT */
   animation-name: slideout;
 }

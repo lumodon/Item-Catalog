@@ -82,7 +82,6 @@ class Toaster {
 
   _handleMessage({ type, payload }) {
     this.messageBeingDisplayed = true
-    console.log('type: ', type)
     const sCase = {
       error: () => {
         this._toaster.classList.add('warning')
