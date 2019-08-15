@@ -16,7 +16,7 @@ export function validateContent(container) {
 }
 
 export function fetchData(url, payload) {
-  fetch(url, {
+  return fetch(url, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',

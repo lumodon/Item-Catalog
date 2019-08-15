@@ -76,7 +76,7 @@ def RestaurantMenuEdit(restaurant_id):
         'edit.html',
         url_list=url_list,
         items=[item.serialize for item in items],
-        restaurant={'name': restaurant.name},
+        restaurant={'name': restaurant.name, 'id': restaurant_id},
     )
 
 

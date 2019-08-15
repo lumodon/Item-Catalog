@@ -16,20 +16,30 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // Handle save
-  Array.from(document.querySelectorAll('.content .save-link')).forEach(link => {
+  Array.from(document.querySelectorAll('.controls .save-link')).forEach(link => {
     link.addEventListener('click', event => {
       event.preventDefault()
-      const id = event.target.dataset['id']
+      const { name, id, restaurantid  } = event.target.dataset
       const container = document.querySelector(`#content-${id}`)
       const validation = validateContent(container)
       if (validation.valid) {
-        fetchData(`/restaurants/${id}/menu/<int:menuitem_id>`, {
+        fetchData(`/restaurants/${restaurantid}/menu/${id}`, {
           id,
           ...['description', 'price', 'name'].reduce((acc, type) => {
             acc[type] = container.querySelector(`.${type}`).value
             return acc
           }, {}),
         })
+          .then(res => res.json())
+          .then(serverResponse => {
+            if(serverResponse.response == 'success') {
+              toaster.pushMessage({
+                type: 'notification',
+                payload: {message: `${name} Saved Successfully`}
+              })
+              console.log(serverResponse.message)
+            }
+          })
       } else {
         toaster.pushMessage({type: 'error', payload: {...validation, interrupt: true}})
       }
