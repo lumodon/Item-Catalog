@@ -5,6 +5,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
     <link rel="stylesheet" href="/static/edit.css">
+    <script>
+      const pToaster = JSON.parse('{{toaster|safe}}')
+    </script>
   </head>
   <body>
     <h1>{{ restaurant.name }}</h1>
@@ -36,7 +39,9 @@
       </div>
     </div>
     {% endfor %}
-    <div class="toaster hidden toaster-offscreen"><p></p></div>
+    <div class="toaster hidden toaster-offscreen">
+      <p></p>
+    </div>
   </body>
   <script src="/static/utilities.js" type="module"></script>
   <script src="/static/toaster.js" type="module"></script>

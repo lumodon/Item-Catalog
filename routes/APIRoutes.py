@@ -1,6 +1,7 @@
 from flask import jsonify, request
 from database import session, Restaurant, MenuItem
 from flask_app import app
+from utilities.toaster import Toaster
 
 
 @app.route('/restaurants/<int:restaurant_id>/menu/JSON')
@@ -20,4 +21,16 @@ def restaurantMenuItemEdit(restaurant_id, menuitem_id):
         'description': data['description'],
         'name': data['name'],
     })
+    session.commit()
     return jsonify(message=update_result, response='success')
+
+
+@app.route('/api/toaster', methods=['POST'])
+def persistantToaster():
+    data = request.get_json()
+    print 'toaster:'
+    print Toaster
+    print '\ndata:'
+    print data
+    Toaster['queue'] = data['queue']
+    return jsonify(response='success')

@@ -1,11 +1,9 @@
-import Toaster from '/static/toaster.js'
+import Toaster, { TOASTER_DURATION } from '/static/toaster.js'
 import { fetchData, validateContent } from '/static/utilities.js'
-
-const TOASTER_DURATION = 3000
 
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize notification system
-  const toaster = new Toaster({
+  window.toaster = new Toaster({
     toasterElement: document.querySelector('.toaster'),
     duration: TOASTER_DURATION, /* TODO: need SASS for SSOT */
   })

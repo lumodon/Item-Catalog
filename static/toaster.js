@@ -1,4 +1,31 @@
-class Toaster {
+import { fetchData } from '/static/utilities.js'
+
+/* LEFT OFF:
+Need to rearchitect entire thing
+
+for persistant messages we need to capture the message to display
+and the message type. Currently we're storing functions which have
+references which cannot be captured in JSON to be sent to server
+
+Abandoning since it was a 'nice-to-have'
+not part of MVP specs anyways.
+*/
+
+
+export const TOASTER_DURATION = 3000
+window.unloadHandler = toaster => (e) => {
+  // e.preventDefault()
+  // e.returnValue = ''
+  if(toaster.messageBeingDisplayed) {
+    toaster._messageQueue.unshift(toaster._currentMessage)
+  }
+  console.log(toaster._messageQueue)
+  // fetchData('/api/toaster', {
+  //   queue: this._messageQueue
+  // })
+}
+
+export default class Toaster {
   constructor({ toasterElement, duration }) {
     this.messageBeingDisplayed = false
     this._messageQueue = []
@@ -18,6 +45,13 @@ class Toaster {
     this._styleSheet = document.styleSheets[document.styleSheets.length - 1]
     this._recalculateSize()
     window.addEventListener('resize', this._recalculateSize)
+
+    // Handle persistant toaster
+    document.addEventListener('DOMContentLoaded', () => {
+      this._messageQueue = [...(pToaster.queue || []), ...this._messageQueue]
+      this._handleQueue()
+    })
+    window.addEventListener('beforeunload', unloadHandler(this))
   }
 
   pushMessage({ type, payload }) {
@@ -128,5 +162,3 @@ class Toaster {
     }
   }
 }
-
-export default Toaster

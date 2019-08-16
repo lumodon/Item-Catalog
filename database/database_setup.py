@@ -40,7 +40,8 @@ class MenuItem(Base):
         }
 
 
-engine = create_engine('sqlite:///database/restaurantmenu.db')
+engine = create_engine('sqlite:///database/restaurantmenu.db',
+                       connect_args={'check_same_thread': False})
 Base.metadata.create_all(engine)
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)

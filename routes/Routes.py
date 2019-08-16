@@ -1,9 +1,12 @@
 from flask import url_for, render_template, send_from_directory
 from database import session, Restaurant, MenuItem
 from flask_app import app
-from helpers import currency_convert
+from utilities.helpers import currency_convert
+from utilities.toaster import Toaster
+
 
 from flask import session as login_session
+import json
 import random
 import string
 import os
@@ -26,6 +29,7 @@ def showLogin():
     return render_template(
         'login.html',
         client_id=os.getenv('GOOGLE_OAUTH_CLIENT_ID'),
+        toaster=json.dumps(Toaster),
     )
     # return "The current session state is %s" % login_session['state']
 
@@ -52,6 +56,7 @@ def RestaurantMenu(restaurant_id):
         url_list=url_list,
         items=[item.serialize for item in items],
         restaurant={'name': restaurant.name},
+        toaster=json.dumps(Toaster),
     )
 
 
@@ -77,6 +82,7 @@ def RestaurantMenuEdit(restaurant_id):
         url_list=url_list,
         items=[item.serialize for item in items],
         restaurant={'name': restaurant.name, 'id': restaurant_id},
+        toaster=json.dumps(Toaster),
     )
 
 
