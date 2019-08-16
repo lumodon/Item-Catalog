@@ -39,8 +39,11 @@ class MenuItem(Base):
             'restaurant_id': self.restaurant_id,
         }
 
-
-engine = create_engine('sqlite:///database/restaurantmenu.db')
+# 'check_same_thread' fix for sqlalchemy bug caused by refreshing or switching
+# pages too quickly - Citation:
+# https://stackoverflow.com/questions/48218065/programmingerror-sqlite-objects-created-in-a-thread-can-only-be-used-in-that-sa
+engine = create_engine('sqlite:///database/restaurantmenu.db',
+                       connect_args={'check_same_thread': False})
 Base.metadata.create_all(engine)
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
