@@ -1,39 +1,69 @@
-
 <!-- saved from url=(0076)https://s3-us-west-2.amazonaws.com/gae-supplemental-media/menuhtml/menu.html -->
 <html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
     <style>
-        .container {
-            width: 20vw;
-            min-width: 400px;
-            margin: 0 auto 15px auto;
-            padding-top: 15px;
-            border-bottom: 1px solid gray;
-        }
-        .content {
-            padding-bottom: 5px;
-        }
-        .controls {
-            padding-top: 5px;
-        }
+      .container {
+        width: 20vw;
+        min-width: 400px;
+        margin: 0 auto 15px auto;
+        padding-top: 15px;
+        border-bottom: 1px solid gray;
+      }
+      .content {
+        padding-bottom: 5px;
+      }
+      .controls {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding-top: 5px;
+      }
     </style>
-</head>
-<body>
-    <h1>{{restaurant.name}}</h1>
+  </head>
+  <body>
+    <h1>{{ restaurant.name }}</h1>
     {% for i in items %}
-        <div class="container">
-            <div class="content">
-                <h3>{{i.name}}</h3>
-                {% for desc in i.description.splitlines() %}
-                    <p>{{desc}}</p>
-                {% endfor %}
-                <p id="price{{i.id}}">Price: {{i.price}}</p>
-            </div>
-            <div class="controls">
-                <a href="{{url_list.restaurant}}edit">Edit</a>
-            </div>
-        </div>
+    <div class="container">
+      <div class="content">
+        <h3>{{ i.name }}</h3>
+        {% for desc in i.description.splitlines() %}
+        <p>{{ desc }}</p>
+        {% endfor %}
+        <p id="price{{ i.id }}">Price: {{ i.price }}</p>
+      </div>
+      <div class="controls">
+        <a href="{{ url_list.restaurant }}edit">Edit</a>
+        <a
+          class="delete-btn"
+          data-url="/menuitems/{{ i.id }}/delete"
+          href="javascript:void(0)"
+          >Delete</a
+        >
+      </div>
+    </div>
     {% endfor %}
-</body>
+    <script>
+      for (const deleteLink of document.querySelectorAll('.delete-btn')) {
+        deleteLink.addEventListener('click', event => {
+          event.preventDefault()
+          fetch(deleteLink.dataset['url'], {
+            method: 'DELETE',
+          })
+            .then(res => res.json())
+            .then(res => {
+              if(res.response && res.response === 'success') {
+                const container = deleteLink.parentElement.parentElement
+                container.parentElement.removeChild(container)
+              } else {
+                toaster.pushMessage({type: 'error', payload: {
+                  error: JSON.stringify(res,0,2),
+                  interrupt: true,
+                }})
+              }
+            })
+        })
+      }
+    </script>
+  </body>
 </html>

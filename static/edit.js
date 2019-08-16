@@ -16,33 +16,40 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // Handle save
-  Array.from(document.querySelectorAll('.controls .save-link')).forEach(link => {
-    link.addEventListener('click', event => {
-      event.preventDefault()
-      const { name, id, restaurantid  } = event.target.dataset
-      const container = document.querySelector(`#content-${id}`)
-      const validation = validateContent(container)
-      if (validation.valid) {
-        fetchData(`/restaurants/${restaurantid}/menu/${id}`, {
-          id,
-          ...['description', 'price', 'name'].reduce((acc, type) => {
-            acc[type] = container.querySelector(`.${type}`).value
-            return acc
-          }, {}),
-        })
-          .then(res => res.json())
-          .then(serverResponse => {
-            if(serverResponse.response == 'success') {
-              toaster.pushMessage({
-                type: 'notification',
-                payload: {message: `${name} Saved Successfully`}
-              })
-              console.log(serverResponse.message)
-            }
+  Array.from(document.querySelectorAll('.controls .save-link'))
+    .forEach(link => {
+      link.addEventListener('click', event => {
+        event.preventDefault()
+        const { name, id  } = event.target.dataset
+        const container = document.querySelector(`#content-${id}`)
+        const validation = validateContent(container)
+        if (validation.valid) {
+          fetchData(`/menuitems/${id}/edit`, {
+            id,
+            ...['description', 'price', 'name'].reduce((acc, type) => {
+              acc[type] = container.querySelector(`.${type}`).value
+              return acc
+            }, {}),
           })
-      } else {
-        toaster.pushMessage({type: 'error', payload: {...validation, interrupt: true}})
-      }
+            .then(res => res.json())
+            .then(serverResponse => {
+              if(serverResponse.response == 'success') {
+                toaster.pushMessage({
+                  type: 'notification',
+                  payload: {message: `${name} Saved Successfully`}
+                })
+                const currentPath = window.location.pathname.split('/')
+                const redirectHref = currentPath.slice(0,currentPath.length-1)
+                  .join('/')
+                window.location = redirectHref
+              }
+            })
+        } else {
+          toaster.pushMessage({
+            type: 'error',
+            payload: {...validation, interrupt: true}
+          })
+        }
+      })
     })
-  })
 })
