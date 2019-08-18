@@ -46,6 +46,8 @@ Finally run the application:
 ## References Used
 
 * Safe filter for passing JSON in render templates: https://www.pythonanywhere.com/forums/topic/1627/
+* Google Signout: https://developers.google.com/identity/sign-in/web/sign-in#before_you_begin
+* Alternative Signin to get around `googleUser.getBasicProfile()` not working: https://stackoverflow.com/questions/31331428/how-to-call-getbasicprofile-of-google-to-google-signin-on-only-button-click
 
 ## License
 

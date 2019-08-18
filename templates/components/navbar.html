@@ -1,6 +1,31 @@
 <div class="navbar">
   <a class="navbar-link" href="/">Catalog</a>
   <div class="right">
-    <a class="navbar-link" href="/login">Login</a>
+    {% if 'token' not in session_user %}
+      <a class="navbar-link" href="/login">Login</a>
+    {% else %}
+      <a href="javascript:void(0)" class="navbar-link">Sign out</a>
+      <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+      <script>
+        function signOut() {
+          var auth2 = gapi.auth2.getAuthInstance()
+          auth2.signOut().then(() => {
+            console.log('User signed out.')
+            fetch('/gdisconnect')
+          })
+        }
+        function onLoad() {
+          gapi.load('auth2', () => {
+            const auth2 = gapi.auth2.init()
+            auth2.then(() => {
+              const currentUser = auth2.currentUser.get()
+              console.log('currentUser: ', currentUser)
+            })
+          })
+        }
+        window.signOut = signOut
+      </script>
+    {% endif %}
+      <!-- Citation: https://developers.google.com/identity/sign-in/web/sign-in#before_you_begin -->
   </div>
 </div>
