@@ -4,3 +4,4 @@ _DEV/
 database/restaurantmenu.db-journal
 database/restaurantmenu.db
 static/favicon.ico
+client_secrets.json

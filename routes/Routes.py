@@ -4,7 +4,6 @@ from flask_app import app
 from helpers import currency_convert
 
 from flask import session as login_session
-import random
 import string
 import os
 
@@ -16,18 +15,6 @@ def favicon():
         'favicon.ico',
         mimetype='image/vnd.microsoft.icon')
 
-
-# Create anti-forgery state token
-@app.route('/login')
-def ShowLogin():
-    state = ''.join(random.choice(string.ascii_uppercase + string.digits)
-                    for x in xrange(32))
-    login_session['state'] = state
-    return render_template(
-        'login.html',
-        client_id=os.getenv('GOOGLE_OAUTH_CLIENT_ID'),
-    )
-    # return "The current session state is %s" % login_session['state']
 
 
 @app.route('/restaurants/<int:restaurant_id>/')
