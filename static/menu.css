@@ -1,0 +1,16 @@
+.container {
+  width: 20vw;
+  min-width: 400px;
+  margin: 0 auto 15px auto;
+  padding-top: 15px;
+  border-bottom: 1px solid gray;
+}
+.content {
+  padding-bottom: 5px;
+}
+.controls {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding-top: 5px;
+}

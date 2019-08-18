@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+    <title>Catalog App</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+    <style>
+      .flex {
+        display: flex;
+        flex-direction: column;
+      }
+      .item {
+        margin: 5px auto;
+      }
+      .center {
+        justify-content: center;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    {% include 'components/navbar.html' %}
+    <div class="flex center">
+      <h1>Welcome</h1>
+      <div class="flex">
+        {% for restaurant in restaurants %}
+        <a class="item" href="/restaurants/{{restaurant.id}}">
+          {{restaurant.name}}
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>

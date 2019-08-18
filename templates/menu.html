@@ -1,27 +1,15 @@
 <!-- saved from url=(0076)https://s3-us-west-2.amazonaws.com/gae-supplemental-media/menuhtml/menu.html -->
 <html>
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
-    <style>
-      .container {
-        width: 20vw;
-        min-width: 400px;
-        margin: 0 auto 15px auto;
-        padding-top: 15px;
-        border-bottom: 1px solid gray;
-      }
-      .content {
-        padding-bottom: 5px;
-      }
-      .controls {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        padding-top: 5px;
-      }
-    </style>
+    <title>Catalog App</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/menu.css">
   </head>
   <body>
+    {% include 'components/navbar.html' %}
     <h1>{{ restaurant.name }}</h1>
     {% for i in items %}
     <div class="container">

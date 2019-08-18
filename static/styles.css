@@ -1,4 +1,41 @@
-.container {
-    margin: 10px;
-    border: solid 1px black;
+html {
+  font-family: "Lucida Console", Monaco, monospace;
+}
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background-color: #eaead2;
+}
+.navbar {
+  align-items: center;
+  background-color: #bbb;
+  border: solid 4px black;
+  box-sizing: border-box;
+  display: flex;
+  height: 60px;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  margin: 0;
+  padding: 10px 20px 10px 15px;
+  width: 100%;
+  position: fixed;
+}
+.right {
+  display: flex;
+  justify-content: space-around;
+  justify-self: flex-end;
+}
+.navbar-link:link, .navbar-link:visited {
+  align-items: center;
+  background-color: #ef2;
+  border-radius: 10px;
+  border: solid 1px black;
+  color: black;
+  color: inherit;
+  display: flex;
+  height: 35px;
+  justify-content: center;
+  text-align: center;
+  text-decoration: inherit;
+  width: 100px;
 }

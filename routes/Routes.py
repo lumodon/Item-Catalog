@@ -82,10 +82,8 @@ def RestaurantMenuEdit(restaurant_id):
 
 @app.route('/')
 def Landing():
-    print "Get request for landing page made"
-    output = "<h1>Welcome</h1>"
     restaurants = session.query(Restaurant).all()
-    for restaurant in restaurants:
-        output += "<a href=\"/restaurants/" + str(restaurant.id) + \
-            "\">" + restaurant.name + "</a><br/>"
-    return output
+    return render_template(
+        'landing.html',
+        restaurants=restaurants
+    )

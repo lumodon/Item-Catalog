@@ -3,10 +3,16 @@
 <!-- saved from url=(0076)https://s3-us-west-2.amazonaws.com/gae-supplemental-media/menuhtml/menu.html -->
 <html>
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+    <title>Catalog App</title>
+    <link rel="stylesheet" href="/static/styles.css">
     <link rel="stylesheet" href="/static/edit.css">
   </head>
   <body>
+    {% include 'components/navbar.html' %}
+    <a class="cancel-edit" href="/restaurants/{{restaurant.id}}">Cancel Edit</a>
     <h1>{{ restaurant.name }}</h1>
     {% for i in items %}
     <div class="container">

@@ -1,6 +1,3 @@
-html {
-  font-family: "Lucida Console", Monaco, monospace;
-}
 .hidden {
   display: none;
 }
@@ -10,6 +7,11 @@ html {
   min-width: 400px;
   padding-top: 15px;
   width: 20vw;
+}
+.cancel-edit {
+  position: fixed;
+  left: 60px;
+  top: 130px;
 }
 .price-edit {
   align-items: center;
