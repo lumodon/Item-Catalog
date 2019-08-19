@@ -4,7 +4,7 @@
     {% if 'token' not in session_user %}
       <a class="navbar-link" href="/login">Login</a>
     {% else %}
-      <a href="javascript:void(0)" class="navbar-link">Sign out</a>
+      <a id="logout" href="javascript:void(0)" class="navbar-link">Sign out</a>
       <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
       <script>
         function signOut() {
@@ -12,6 +12,9 @@
           auth2.signOut().then(() => {
             console.log('User signed out.')
             fetch('/gdisconnect')
+              .then(() => {
+                window.location.reload(true)
+              })
           })
         }
         function onLoad() {
@@ -23,6 +26,12 @@
             })
           })
         }
+        document.addEventListener('DOMContentLoaded', () => {
+          document.querySelector('#logout').addEventListener('click', (e) => {
+            e.preventDefault()
+            signOut()
+          })
+        })
         window.signOut = signOut
       </script>
     {% endif %}
