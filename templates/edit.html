@@ -16,34 +16,36 @@
     {% include 'components/navbar.html' %}
     <a class="cancel-edit" href="/restaurants/{{restaurant.id}}">Cancel Edit</a>
     <h1>{{ restaurant.name }}</h1>
-    {% for i in items %}
-    <div class="container">
-      <div class="content" id="content-{{ i.id }}" data-id="{{ i.id }}">
-        <input class="value name" type="text" value="{{ i.name }}" />
-        <textarea
-          rows="15"
-          class="value description"
-          data-description="{{ i.description }}"
-        >
-        </textarea>
-        <div class="price-edit">
-          <p>$</p>
-          <input type="text" class="value price" value="{{ i.price }}" />
+    <div class="item-list">
+      {% for i in items %}
+      <div class="container">
+        <div class="content" id="content-{{ i.id }}" data-id="{{ i.id }}">
+          <input class="value name" type="text" value="{{ i.name }}" />
+          <textarea
+            rows="15"
+            class="value description"
+            data-description="{{ i.description }}"
+          >
+          </textarea>
+          <div class="price-edit">
+            <p>$</p>
+            <input type="text" class="value price" value="{{ i.price }}" />
+          </div>
+        </div>
+        <div class="controls">
+          <a
+            class="save-link"
+            data-id="{{ i.id }}"
+            data-restaurantid="{{ restaurant.id }}"
+            data-name="{{ i.name }}"
+            href="javascript:void(0)"
+          >
+            Save
+          </a>
         </div>
       </div>
-      <div class="controls">
-        <a
-          class="save-link"
-          data-id="{{ i.id }}"
-          data-restaurantid="{{ restaurant.id }}"
-          data-name="{{ i.name }}"
-          href="javascript:void(0)"
-        >
-          Save
-        </a>
-      </div>
+      {% endfor %}
     </div>
-    {% endfor %}
     <div class="toaster hidden toaster-offscreen">
       <p></p>
     </div>

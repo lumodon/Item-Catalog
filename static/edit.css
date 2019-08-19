@@ -8,11 +8,6 @@
   padding-top: 15px;
   width: 20vw;
 }
-.cancel-edit {
-  position: fixed;
-  left: 60px;
-  top: 130px;
-}
 .price-edit {
   align-items: center;
   display: flex;
@@ -71,4 +66,51 @@ input {
   animation-delay: 0s;
   animation-duration: 1s; /* TODO: need SASS for SSOT */
   animation-name: slideout;
+}
+.cancel-edit {
+  position: fixed;
+  left: 60px;
+  top: 130px;
+}
+@media screen and (max-width: 768px) {
+  .cancel-edit {
+    left: 60px;
+  }
+  .container {
+    min-width: unset;
+    width: 60vw;
+  }
+  .item-list {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: 0 35vw;
+  }
+  .value {
+    font-size: 1em;
+  }
+}
+@media screen and (max-width: 525px) {
+  .cancel-edit {
+    left: 10px;
+  }
+  .container {
+    width: 70vw;
+  }
+  .item-list {
+    margin: 0 25vw;
+  }
+  .value {
+    font-size: 0.95em;
+  }
+}
+@media screen and (max-width: 525px) {
+  .cancel-edit {
+    width: 60px;
+    left: 20px;
+    text-align: center;
+  }
+  .value {
+    font-size: 0.9em;
+  }
 }
