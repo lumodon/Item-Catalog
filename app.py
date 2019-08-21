@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from database import Base, Restaurant, MenuItem, session
 from flask import url_for
 from flask_app import app
 from routes import *
