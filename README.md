@@ -9,7 +9,7 @@ Ensure the following applications are accessible from your PATH variable
 1. First you'll need VirtualBox installed on your machine. Find your operating system and install [Virtual Box](https://www.virtualbox.org/wiki/Downloads)
 2. Next you'll need to install [Vagrant](https://www.vagrantup.com/downloads.html)
 
-Next, run these commands in your terminal  
+Next, run these commands in your terminal:  
 
 ```sh
  $ git clone https://github.com/udacity/fullstack-nanodegree-vm.git
@@ -30,9 +30,8 @@ Continue running the following commands:
  $ ./init.sh
 ```
 
-* Follow directions provided in email / project submission notes!  
-    1. Download static assets from a file-share url that is purposefully kept hidden from version tracking  
-    2. modify the .env file to contain proper environment variable values.  
+*Setup Static Assets*  
+1. Follow directions provided in email / project submission notes for static assets  
 
 Finally run the application:  
   
