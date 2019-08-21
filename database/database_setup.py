@@ -1,48 +1,52 @@
 #!/usr/bin/python
-from sqlalchemy import create_engine, Column, ForeignKey, Integer, String
+import datetime
+from sqlalchemy import \
+    create_engine, Column, ForeignKey, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 Base = declarative_base()
 
 
-class Restaurant(Base):
-    __tablename__ = 'restaurant'
+class Category(Base):
+    __tablename__ = 'category'
     name = Column(String(80), nullable=False)
     id = Column(Integer, primary_key=True)
+    create_date = Column(DateTime, default=datetime.datetime.utcnow)
     @property
     def serialize(self):
         """Return object data in easily serializable format"""
         return {
             'id': self.id,
             'name': self.name,
+            'create_date': self.create_date,
         }
 
 
-class MenuItem(Base):
-    __tablename__ = 'menu_item'
+class Item(Base):
+    __tablename__ = 'item'
     name = Column(String(80), nullable=False)
     id = Column(Integer, primary_key=True)
-    course = Column(String(250))
     description = Column(String(250))
-    price = Column(String(8))
-    restaurant_id = Column(Integer, ForeignKey('restaurant.id'))
-    restaurant = relationship(Restaurant)
+    owner_id = Column(String(80))
+    category_id = Column(Integer, ForeignKey('category.id'))
+    create_date = Column(DateTime, default=datetime.datetime.utcnow)
+    category = relationship(Category)
     @property
     def serialize(self):
         """Return object data in easily serializable format"""
         return {
             'id': self.id,
             'name': str(self.name).lstrip(),
-            'course': str(self.course).lstrip(),
             'description': str(self.description).lstrip(),
-            'price': str(self.price).lstrip(),
-            'restaurant_id': self.restaurant_id,
+            'owner_id': str(self.owner_id).lstrip(),
+            'category_id': self.category_id,
+            'create_date': self.create_date,
         }
 
 # 'check_same_thread' fix for sqlalchemy bug caused by refreshing or switching
 # pages too quickly - Citation:
 # https://stackoverflow.com/questions/48218065/programmingerror-sqlite-objects-created-in-a-thread-can-only-be-used-in-that-sa
-engine = create_engine('sqlite:///database/restaurantmenu.db',
+engine = create_engine('sqlite:///database/catalog.db',
                        connect_args={'check_same_thread': False})
 Base.metadata.create_all(engine)
 Base.metadata.bind = engine

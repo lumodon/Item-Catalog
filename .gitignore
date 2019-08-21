@@ -1,8 +1,8 @@
 _DEV/
 .env
 *.pyc
-database/restaurantmenu.db-journal
-database/restaurantmenu.db
+database/catalog.db-journal
+database/catalog.db
 static/favicon.ico
 client_secrets.json
 assets

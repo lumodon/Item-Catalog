@@ -12,7 +12,7 @@ load_dotenv()
 
 with app.test_request_context():
     print(url_for('Landing'))
-    print(url_for('RestaurantMenu', restaurant_id=1))
+    print(url_for('CategoryListing', category_id=1))
 
 
 if __name__ == '__main__':

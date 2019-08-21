@@ -24,9 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const container = document.querySelector(`#content-${id}`)
         const validation = validateContent(container)
         if (validation.valid) {
-          fetchData(`/menuitems/${id}/edit`, {
+          fetchData(`/items/${id}/edit`, {
             id,
-            ...['description', 'price', 'name'].reduce((acc, type) => {
+            ...['description', 'name'].reduce((acc, type) => {
               acc[type] = container.querySelector(`.${type}`).value
               return acc
             }, {}),
