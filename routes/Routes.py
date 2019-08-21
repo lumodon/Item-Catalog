@@ -12,13 +12,24 @@ CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
 
 
+def populate_session():
+    if 'username' in login_session:
+        # If no gplus id then use email
+        # If no email then hard fail with exception
+        return {
+            'token': login_session['username'],
+            'picture': login_session.get('picture', None),
+            'gplus_id': login_session.get('gplus_id', login_session['email'])
+        }
+    return {}
+
+
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(
         os.path.join(app.root_path, 'static'),
         'favicon.ico',
         mimetype='image/vnd.microsoft.icon')
-
 
 
 @app.route('/categories/<int:category_id>/')
@@ -38,16 +49,10 @@ def CategoryListing(category_id):
         'category': url_for('CategoryListing', category_id=category_id),
     }
 
-    session_user = {}
-    if('username' in login_session):
-        session_user = {
-            'token': login_session['username']
-        }
-
     return render_template(
         'listing.html',
         CLIENT_ID=CLIENT_ID,
-        session_user=session_user,
+        session_user=populate_session(),
         url_list=url_list,
         items=[item.serialize for item in items],
         category={'name': category.name},
@@ -71,16 +76,10 @@ def CategoryListingEdit(category_id):
         'category': url_for('CategoryListing', category_id=category_id),
     }
 
-    session_user = {}
-    if('username' in login_session):
-        session_user = {
-            'token': login_session['username']
-        }
-
     return render_template(
         'edit.html',
         CLIENT_ID=CLIENT_ID,
-        session_user=session_user,
+        session_user=populate_session(),
         url_list=url_list,
         items=[item.serialize for item in items],
         category={'name': category.name, 'id': category_id},
@@ -91,15 +90,9 @@ def CategoryListingEdit(category_id):
 def Landing():
     categories = session.query(Category).all()
 
-    session_user = {}
-    if('username' in login_session):
-        session_user = {
-            'token': login_session['username']
-        }
-
     return render_template(
         'landing.html',
         CLIENT_ID=CLIENT_ID,
-        session_user=session_user,
+        session_user=populate_session(),
         categories=categories
     )

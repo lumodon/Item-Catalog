@@ -1,9 +1,25 @@
 <div class="navbar">
+  <script>
+    const sessionUser = JSON.parse('{{session_user|tojson}}' || {
+      'gplus_id': null,
+      'picture': null,
+      'token': null,
+    })
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.querySelector('.google-image-container')
+      container.querySelector('.google-image').src = sessionUser.picture
+      container.querySelector('.tooltip').innerText = sessionUser.token
+    })
+  </script>
   <a class="navbar-link" href="/">Catalog</a>
   <div class="right">
     {% if 'token' not in session_user %}
       <a class="navbar-link" href="/login">Login</a>
     {% else %}
+      <div class="google-image-container">
+        <img class="google-image" />
+        <span class="tooltip"></span>
+      </div>
       <a id="logout" href="javascript:void(0)" class="navbar-link">Sign out</a>
       <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
       <script>
