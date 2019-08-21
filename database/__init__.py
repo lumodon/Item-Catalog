@@ -1,1 +1,1 @@
-from database_setup import session, Base, Restaurant, MenuItem
+from database_setup import session, Base, Category, Item

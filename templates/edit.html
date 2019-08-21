@@ -14,8 +14,8 @@
   </head>
   <body>
     {% include 'components/navbar.html' %}
-    <a class="cancel-edit" href="/restaurants/{{restaurant.id}}">Cancel Edit</a>
-    <h1>{{ restaurant.name }}</h1>
+    <a class="cancel-edit" href="/categories/{{category.id}}">Cancel Edit</a>
+    <h1>{{ category.name }}</h1>
     <div class="item-list">
       {% for i in items %}
       <div class="container">
@@ -27,16 +27,12 @@
             data-description="{{ i.description }}"
           >
           </textarea>
-          <div class="price-edit">
-            <p>$</p>
-            <input type="text" class="value price" value="{{ i.price }}" />
-          </div>
         </div>
         <div class="controls">
           <a
             class="save-link"
             data-id="{{ i.id }}"
-            data-restaurantid="{{ restaurant.id }}"
+            data-categoryid="{{ category.id }}"
             data-name="{{ i.name }}"
             href="javascript:void(0)"
           >

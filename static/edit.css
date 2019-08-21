@@ -8,17 +8,6 @@
   padding-top: 15px;
   width: 20vw;
 }
-.price-edit {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  font-family: "Lucida Console", Monaco, monospace;
-  font-size: 1.15em;
-  justify-content: flex-start;
-}
-.price-edit input {
-  height: 1.6em;
-}
 .content {
   display: flex;
   flex-direction: column;

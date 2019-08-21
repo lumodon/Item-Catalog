@@ -8,8 +8,6 @@ export function validateContent(container) {
   for (const valEle of container.querySelectorAll('.value')) {
     if (!valEle.value) {
       return validateWithError('Empty input')
-    } else if (valEle.classList.contains('price') && isNaN(valEle.value)) {
-      return validateWithError('Price is not a valid number')
     }
   }
   return { valid: true }

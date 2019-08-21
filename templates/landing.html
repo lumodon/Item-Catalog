@@ -27,9 +27,9 @@
     <div class="flex center">
       <h1>Welcome</h1>
       <div class="flex">
-        {% for restaurant in restaurants %}
-        <a class="item" href="/restaurants/{{restaurant.id}}">
-          {{restaurant.name}}
+        {% for category in categories %}
+        <a class="item" href="/categories/{{category.id}}">
+          {{category.name}}
         </a>
         {% endfor %}
       </div>

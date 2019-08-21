@@ -1,3 +1,5 @@
+<!-- Starter html (heavily modified) used from Udacity lesson 4 -->
+<!-- Citation below: -->
 <!-- saved from url=(0076)https://s3-us-west-2.amazonaws.com/gae-supplemental-media/menuhtml/menu.html -->
 <html>
   <head>
@@ -8,11 +10,11 @@
     <meta name="google-signin-client_id" content="{{CLIENT_ID}}">
     <title>Catalog App</title>
     <link rel="stylesheet" href="/static/styles.css">
-    <link rel="stylesheet" href="/static/menu.css">
+    <link rel="stylesheet" href="/static/listing.css">
   </head>
   <body>
     {% include 'components/navbar.html' %}
-    <h1>{{ restaurant.name }}</h1>
+    <h1>{{ category.name }}</h1>
     {% for i in items %}
     <div class="container">
       <div class="content">
@@ -20,13 +22,12 @@
         {% for desc in i.description.splitlines() %}
         <p>{{ desc }}</p>
         {% endfor %}
-        <p id="price{{ i.id }}">Price: {{ i.price }}</p>
       </div>
       <div class="controls">
-        <a href="{{ url_list.restaurant }}edit">Edit</a>
+        <a href="{{ url_list.category }}edit">Edit</a>
         <a
           class="delete-btn"
-          data-url="/menuitems/{{ i.id }}/delete"
+          data-url="/items/{{ i.id }}/delete"
           href="javascript:void(0)"
           >Delete</a
         >
