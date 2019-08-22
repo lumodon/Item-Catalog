@@ -38,11 +38,16 @@ Finally run the application:
 ```sh
  $ python app.py
 ```
+
+Don't forget to try the JSON route which doesn't have any hyperlinks for standard users  
+For example:  
+`http://localhost:5001/categories/4/listing/JSON`  
+
 ## Architecture
 
 `app.py` is the starting point for the app  
 
-## References Used
+## References Useds
 
 * Safe filter for passing JSON in render templates: https://www.pythonanywhere.com/forums/topic/1627/
 * Google Signout: https://developers.google.com/identity/sign-in/web/sign-in#before_you_begin
