@@ -16,25 +16,25 @@
     {% include 'components/navbar.html' %}
     <h1>{{ category.name }}</h1>
     {% for i in items %}
-    <div class="container">
-      <div class="content">
-        <h3>{{ i.name }}</h3>
-        {% for desc in i.description.splitlines() %}
-        <p>{{ desc }}</p>
-        {% endfor %}
-      </div>
-      {% if session_user['gplus_id'] in i.owner_id %}
-        <div class="controls">
-          <a href="{{ url_list.category }}edit">Edit</a>
-          <a
-            class="delete-btn"
-            data-url="/items/{{ i.id }}/delete"
-            href="javascript:void(0)"
-            >Delete</a
-          >
+      <div class="container">
+        <div class="content">
+          <h3>{{ i.name }}</h3>
+          {% for desc in i.description.splitlines() %}
+          <p>{{ desc }}</p>
+          {% endfor %}
         </div>
-      {% endif %}
-    </div>
+        {% if session_user['gplus_id'] in i.owner_id %}
+          <div class="controls">
+            <a href="{{ url_list.category }}edit">Edit</a>
+            <a
+              class="delete-btn"
+              data-url="/items/{{ i.id }}/delete"
+              href="javascript:void(0)"
+              >Delete</a
+            >
+          </div>
+        {% endif %}
+      </div>
     {% endfor %}
     <script>
       for (const deleteLink of document.querySelectorAll('.delete-btn')) {
