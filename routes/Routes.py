@@ -86,13 +86,31 @@ def CategoryListingEdit(category_id):
     )
 
 
+@app.route('/items/create')
+def ItemCreate():
+    if 'username' not in login_session:
+        return redirect('/login')
+    categories = session.query(Category).all()
+
+    return render_template(
+        'create.html',
+        CLIENT_ID=CLIENT_ID,
+        session_user=populate_session(),
+        categories=categories,
+    )
+
+
 @app.route('/')
 def Landing():
     categories = session.query(Category).all()
+    url_list = {
+        'create': url_for('ItemCreate'),
+    }
 
     return render_template(
         'landing.html',
         CLIENT_ID=CLIENT_ID,
+        url_list=url_list,
         session_user=populate_session(),
         categories=categories
     )

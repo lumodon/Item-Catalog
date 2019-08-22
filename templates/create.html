@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="{{CLIENT_ID}}">
+    <title>Catalog App</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/create.css">
+  </head>
+  <body>
+    {% include 'components/navbar.html' %}
+    <h1>Create Item</h1>
+      <div class="container">
+        <div class="content">
+          <input class="value name" required type="text" placeholder="Item name" />
+          <div class="description-container">
+            <label for="description">Description:</label>
+            <textarea rows="15" id="description" class="value description">
+            </textarea>
+          </div>
+          <select class="value category" name="select" id="category" required>
+            <option selected disabled hidden>Select a category...</option>
+            {% for category in categories %}
+              <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="controls">
+          <a
+            class="save-link"
+            href="javascript:void(0)"
+          >
+            Save
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="/static/utilities.js" type="module"></script>
+  <script src="/static/create.js" type="module"></script>
+</html>

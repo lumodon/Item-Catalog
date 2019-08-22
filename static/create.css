@@ -1,0 +1,27 @@
+.container {
+  padding-top: 20px;
+  margin: 0 auto;
+  width: 60vw;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 80%;
+}
+.controls {
+  padding-top: 5px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.description {
+  flex: 1 1 auto;
+}
+.description-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%
+}

@@ -20,18 +20,24 @@
         justify-content: center;
         text-align: center;
       }
+      .hero {
+        margin-top: 80px;
+      }
     </style>
   </head>
   <body>
     {% include 'components/navbar.html' %}
-    <div class="flex center">
-      <h1>Welcome</h1>
-      <div class="flex">
-        {% for category in categories %}
-        <a class="item" href="/categories/{{category.id}}">
-          {{category.name}}
-        </a>
-        {% endfor %}
+    <div class="hero">
+      <a href="{{ url_list.create }}">Create Item</a>
+      <div class="flex center">
+        <h1>Welcome</h1>
+        <div class="flex">
+          {% for category in categories %}
+          <a class="item" href="/categories/{{category.id}}">
+            {{category.name}}
+          </a>
+          {% endfor %}
+        </div>
       </div>
     </div>
   </body>
