@@ -27,7 +27,7 @@
         </div>
         {% if session_user['gplus_id'] in i.owner_id %}
           <div class="controls">
-            <a href="{{ url_list.category }}edit">Edit</a>
+            <a href="/items/{{ i.id }}/edit">Edit</a>
             <a
               class="delete-btn"
               data-url="/items/{{ i.id }}/delete"

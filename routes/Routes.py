@@ -48,7 +48,6 @@ def CategoryListing(category_id):
         category_id=category_id).all()
     url_list = {
         'landing': url_for('Landing'),
-        'category': url_for('CategoryListing', category_id=category_id),
     }
 
     return render_template(
@@ -58,33 +57,6 @@ def CategoryListing(category_id):
         url_list=url_list,
         items=[item.serialize for item in items],
         category={'name': category.name},
-    )
-
-
-@app.route('/categories/<int:category_id>/edit')
-def CategoryListingEdit(category_id):
-    if 'username' not in login_session:
-        return redirect('/login')
-    category = session.query(Category).filter_by(id=category_id).first()
-    if category == None:
-        class placeholderCategory:
-            id = category_id
-            name = "No Categories Found with this ID: {}".format(category_id)
-        category = placeholderCategory
-    items = session.query(Item).filter_by(
-        category_id=category_id).all()
-    url_list = {
-        'landing': url_for('Landing'),
-        'category': url_for('CategoryListing', category_id=category_id),
-    }
-
-    return render_template(
-        'edit.html',
-        CLIENT_ID=CLIENT_ID,
-        session_user=populate_session(),
-        url_list=url_list,
-        items=[item.serialize for item in items],
-        category={'name': category.name, 'id': category_id},
     )
 
 
