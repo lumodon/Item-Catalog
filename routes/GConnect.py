@@ -130,6 +130,8 @@ def gdisconnect():
     print 'User name is: '
     print login_session['username']
     url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % login_session['access_token']
+    print 'url attempting: '
+    print url
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
     print 'result is '

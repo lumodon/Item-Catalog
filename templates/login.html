@@ -94,7 +94,7 @@
           .then(result => {
             if(result) {
               resultElement.innerHTML =
-                `Login Successful!<br/>${result}<br/>Redirecting...`
+                `Login Successful!<br/>${JSON.stringify(result,0,2)}<br/>Redirecting...`
               setTimeout(() => {
                 window.location.href = '/'
               }, 4000)
