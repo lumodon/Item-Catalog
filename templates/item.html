@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="{{CLIENT_ID}}">
+    <title>Catalog App</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+    <style>
+      .controls {
+        padding-top: 5px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+      .content {
+        display: flex;
+        flex-direction: column;
+      }
+      textarea,
+      input {
+        font-family: "Lucida Console", Monaco, monospace;
+        font-size: 1.15em;
+      }
+      .container {
+        margin: 0 auto;
+        width: 70vw;
+      }
+    </style>
+  </head>
+  <body>
+    {% include 'components/navbar.html' %}
+    <h1>{{ item.name }}</h1>
+      <div class="container">
+        <div class="content">
+          <h3>{{ item.name }}</h3>
+          <span>
+            Category: <a href="{{ url_list.listing }}">
+              {{ item.category_name }}
+            </a>
+          </span>
+          {% for desc in item.description.splitlines() %}
+            <p>{{ desc }}</p>
+          {% endfor %}
+        </div>
+        {% if session_user['gplus_id'] in item.owner_id %}
+          <div class="controls">
+            <a href="{{ url_list.edit }}">Edit</a>
+            <a
+              class="delete-btn"
+              data-url="{{ url_list.delete }}"
+              href="javascript:void(0)"
+              >Delete</a
+            >
+          </div>
+        {% endif %}
+    </div>
+    <script>
+      // Handle Delete Button
+      document.addEventListener('DOMContentLoaded', () => {
+        const deleteLink = document.querySelector('.delete-btn')
+        if(deleteLink) {
+          deleteLink.addEventListener('click', event => {
+            event.preventDefault()
+            fetch(deleteLink.dataset['url'], {
+              method: 'DELETE',
+            })
+              .then(res => res.json())
+              .then(res => {
+                if(res.response && res.response === 'success') {
+                  const container = deleteLink.parentElement.parentElement
+                  container.parentElement.removeChild(container)
+                } else {
+                  console.error(JSON.stringify(res,0,2))
+                }
+              })
+          })
+        }
+      })
+    </script>
+  </body>
+</html>

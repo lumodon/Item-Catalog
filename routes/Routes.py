@@ -88,6 +88,63 @@ def CategoryListingEdit(category_id):
     )
 
 
+@app.route('/items/<int:item_id>')
+def ItemView(item_id):
+    if 'username' not in login_session:
+        return redirect('/login')
+    item = session.query(Item).filter_by(id=item_id).first()
+    item_category = session.query(Category) \
+        .filter_by(id=item.category_id).first()
+    item.category_name = item_category.name
+    if item == None:
+        class placeholderItem:
+            id = item_id
+            name = "No Categories Found with this ID: {}".format(item_id)
+        item = placeholderItem
+    url_list = {
+        'landing': url_for('Landing'),
+        'edit': url_for('ItemEdit', item_id=item_id),
+        'delete': url_for('ItemDelete', item_id=item_id),
+        'listing': url_for('CategoryListing', category_id=item_category.id)
+    }
+
+    return render_template(
+        'item.html',
+        CLIENT_ID=CLIENT_ID,
+        session_user=populate_session(),
+        url_list=url_list,
+        item=item,
+    )
+
+# TODO: DRY call for Item & ItemEdit -- similar initialization
+@app.route('/items/<int:item_id>/edit')
+def ItemEdit(item_id):
+    if 'username' not in login_session:
+        return redirect('/login')
+    item = session.query(Item).filter_by(id=item_id).first()
+    item.category_name = session.query(Category) \
+        .filter_by(id=item.category_id).first().name
+    if item == None:
+        class placeholderItem:
+            id = item_id
+            name = "No Categories Found with this ID: {}".format(item_id)
+        item = placeholderItem
+    url_list = {
+        'landing': url_for('Landing'),
+        'item': url_for('ItemView', item_id=item_id),
+    }
+    categories = session.query(Category).all()
+
+    return render_template(
+        'itemEdit.html',
+        CLIENT_ID=CLIENT_ID,
+        session_user=populate_session(),
+        url_list=url_list,
+        item=item,
+        categories=categories,
+    )
+
+
 @app.route('/items/create')
 def ItemCreate():
     if 'username' not in login_session:
@@ -106,9 +163,8 @@ def ItemCreate():
 def Landing():
     categories = session.query(Category).all()
     items = session.query(Item) \
-        .order_by(Item.create_date.desc()) \
-        .limit(10) \
-        .all()
+        .order_by(Item.create_date.desc()).limit(10).all()
+
     url_list = {
         'create': url_for('ItemCreate'),
     }

@@ -13,7 +13,7 @@ def CategoryListingJSON(category_id):
 
 @app.route('/items/<int:item_id>/edit',
            methods=['POST'])
-def ItemEdit(item_id):
+def ItemSave(item_id):
     if 'username' not in login_session:
         abort(401)
     else:

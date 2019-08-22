@@ -18,7 +18,9 @@
     {% for i in items %}
       <div class="container">
         <div class="content">
-          <h3>{{ i.name }}</h3>
+          <!-- TODO: switch hardcoded url to url_for -->
+          <!-- How do I use "url_for" here with dynamic loop? -->
+          <h3><a href="/items/{{ i.id }}">{{ i.name }}</a></h3>
           {% for desc in i.description.splitlines() %}
           <p>{{ desc }}</p>
           {% endfor %}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="{{CLIENT_ID}}">
+    <title>Catalog App</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+    <style>
+      .controls {
+        padding-top: 5px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+      .content {
+        display: flex;
+        flex-direction: column;
+      }
+      textarea,
+      input {
+        font-family: "Lucida Console", Monaco, monospace;
+        font-size: 1.15em;
+      }
+      .container {
+        margin: 0 auto;
+        width: 70vw;
+      }
+    </style>
+  </head>
+  <body>
+    {% include 'components/navbar.html' %}
+    <h1>{{ item.name }}</h1>
+    {% if session_user['gplus_id'] in item.owner_id %}
+      <div class="container">
+        <div class="content" id="content-{{ item.id }}" data-id="{{ item.id }}">
+          <input class="value name" type="text" value="{{ item.name }}" />
+          <textarea
+            rows="15"
+            class="value description"
+            data-description="{{ item.description }}"
+          >
+          </textarea>
+          <select class="value category" name="select" id="category" required>
+            {% for category in categories %}
+              {% if category.id == item.category_id %}
+                <option selected value="{{ category.id }}">
+                  {{ category.name }}
+                </option>
+              {% else %}
+                <option value="{{ category.id }}">
+                  {{ category.name }}
+                </option>
+              {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        <div class="controls">
+          <a href="{{ url_list.item }}">Cancel Edit</a>
+          <a
+            class="save-link"
+            data-id="{{ item.id }}"
+            data-categoryid="{{ item.category_id }}"
+            data-name="{{ item.name }}"
+            href="javascript:void(0)"
+          >
+            Save
+          </a>
+        </div>
+      </div>
+    {% else %}
+      <script>
+        window.location.href = '{{ url_list.item }}'
+      </script>
+    {% endif %}
+  </body>
+  <script src="/static/utilities.js" type="module"></script>
+  <script src="/static/itemEdit.js" type="module"></script>
+</html>

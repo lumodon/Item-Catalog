@@ -1,6 +1,7 @@
 import Toaster from '/static/toaster.js'
 import { fetchData, validateContent } from '/static/utilities.js'
 
+// TODO: DRY itemEdit.js & edit.js
 const TOASTER_DURATION = 3000
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -38,9 +39,12 @@ document.addEventListener('DOMContentLoaded', () => {
                   type: 'notification',
                   payload: {message: `${name} Saved Successfully`}
                 })
+
+                // Remove 'edit' from end of url
                 const currentPath = window.location.pathname.split('/')
                 const redirectHref = currentPath.slice(0,currentPath.length-1)
                   .join('/')
+
                 window.location = redirectHref
               }
             })

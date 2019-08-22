@@ -37,9 +37,13 @@
       .small {
         margin: 0;
         padding: 0;
+        font-size: 0.9em;
       }
       .text-center {
         text-align: center;
+      }
+      .bottom-margin {
+        margin-bottom: 10px;
       }
     </style>
   </head>
@@ -62,10 +66,12 @@
           {% for item in items %}
             <p class="small">
               {{ item.formatted_datetime }}
-            </p><p class="small">
-              {{ item.name }} in {{ item.category_name }}
             </p>
-            <br />
+            <!-- TODO: switch hardcoded url to url_for -->
+            <!-- How do I use "url_for" here with dynamic loop? -->
+            <a href="/items/{{ item.id }}" class="small bottom-margin">
+              {{ item.name }} in {{ item.category_name }}
+            </a>
           {% endfor %}
         </div>
       </div>
