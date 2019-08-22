@@ -24,6 +24,26 @@ def ItemEdit(item_id):
         return jsonify(message=update_result, response='success')
 
 
+@app.route('/items/create',
+           methods=['POST'])
+def ItemCreateAjax():
+    if 'username' not in login_session:
+        abort(401)
+    else:
+        data = request.get_json(cache=False)
+        print 'Data: '
+        print data
+        create_result = {'val': 'nothing'}
+        category = session.query(Category).filter_by(id=data['category']).one()
+        new_item = Item(name=data['name'],
+                        description=data['description'],
+                        owner_id=login_session['gplus_id'],
+                        category=category)
+        create_result = session.add(new_item)
+        session.commit()
+        return jsonify(message=create_result, response='success')
+
+
 @app.route('/items/<int:item_id>/delete',
            methods=['DELETE'])
 def ItemDelete(item_id):
