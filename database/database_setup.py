@@ -18,7 +18,7 @@ class Category(Base):
         return {
             'id': self.id,
             'name': self.name,
-            'create_date': self.create_date,
+            'create_date': self.create_date.isoformat(),
         }
 
 
@@ -40,7 +40,7 @@ class Item(Base):
             'description': str(self.description).lstrip(),
             'owner_id': str(self.owner_id).lstrip(),
             'category_id': self.category_id,
-            'create_date': self.create_date,
+            'create_date': self.create_date.isoformat(),
         }
 
 # 'check_same_thread' fix for sqlalchemy bug caused by refreshing or switching
