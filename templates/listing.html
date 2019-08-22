@@ -23,15 +23,17 @@
         <p>{{ desc }}</p>
         {% endfor %}
       </div>
-      <div class="controls">
-        <a href="{{ url_list.category }}edit">Edit</a>
-        <a
-          class="delete-btn"
-          data-url="/items/{{ i.id }}/delete"
-          href="javascript:void(0)"
-          >Delete</a
-        >
-      </div>
+      {% if session_user['gplus_id'] in i.owner_id %}
+        <div class="controls">
+          <a href="{{ url_list.category }}edit">Edit</a>
+          <a
+            class="delete-btn"
+            data-url="/items/{{ i.id }}/delete"
+            href="javascript:void(0)"
+            >Delete</a
+          >
+        </div>
+      {% endif %}
     </div>
     {% endfor %}
     <script>
