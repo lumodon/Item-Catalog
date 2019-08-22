@@ -2,10 +2,12 @@ from flask import url_for, render_template, send_from_directory, redirect
 from database import session, Category, Item
 from flask_app import app
 
+from dateutil import parser
 from flask import session as login_session
 import string
 import json
 import os
+from datetime import datetime
 
 
 CLIENT_ID = json.loads(
@@ -59,7 +61,7 @@ def CategoryListing(category_id):
     )
 
 
-@app.route('/category/<int:category_id>/edit')
+@app.route('/categories/<int:category_id>/edit')
 def CategoryListingEdit(category_id):
     if 'username' not in login_session:
         return redirect('/login')
@@ -103,14 +105,27 @@ def ItemCreate():
 @app.route('/')
 def Landing():
     categories = session.query(Category).all()
+    items = session.query(Item) \
+        .order_by(Item.create_date.desc()) \
+        .limit(10) \
+        .all()
     url_list = {
         'create': url_for('ItemCreate'),
     }
+
+    def modifyDate(item):
+        datetime_obj = parser.parse(item['create_date'])
+        item['formatted_datetime'] = datetime_obj.strftime("%c")
+        item['category_name'] = next(
+            i for i in categories if i.id == item['category_id']).name
+        return item
+    modified_list = [modifyDate(i.serialize) for i in items]
 
     return render_template(
         'landing.html',
         CLIENT_ID=CLIENT_ID,
         url_list=url_list,
         session_user=populate_session(),
-        categories=categories
+        categories=categories,
+        items=modified_list
     )

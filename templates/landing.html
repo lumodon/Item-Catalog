@@ -9,6 +9,12 @@
     <title>Catalog App</title>
     <link rel="stylesheet" href="/static/styles.css" />
     <style>
+      .flex-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+      }
       .flex {
         display: flex;
         flex-direction: column;
@@ -16,12 +22,24 @@
       .item {
         margin: 5px auto;
       }
-      .center {
-        justify-content: center;
-        text-align: center;
-      }
       .hero {
         margin-top: 80px;
+        text-align: center;
+      }
+      .main-left {
+        justify-self: flex-start;
+        flex: 1 1 45vw;
+      }
+      .main-right {
+        justify-self: flex-end;
+        flex: 1 1 45vw;
+      }
+      .small {
+        margin: 0;
+        padding: 0;
+      }
+      .text-center {
+        text-align: center;
       }
     </style>
   </head>
@@ -29,13 +47,25 @@
     {% include 'components/navbar.html' %}
     <div class="hero">
       <a href="{{ url_list.create }}">Create Item</a>
-      <div class="flex center">
-        <h1>Welcome</h1>
-        <div class="flex">
+      <h1>Welcome</h1>
+      <div class="flex-container">
+        <div class="flex main-left">
+          <h4 class="text-center">Categories:</h4>
           {% for category in categories %}
           <a class="item" href="/categories/{{category.id}}">
             {{category.name}}
           </a>
+          {% endfor %}
+        </div>
+        <div class="flex main-right">
+          <h4>Recent Items:</h4>
+          {% for item in items %}
+            <p class="small">
+              {{ item.formatted_datetime }}
+            </p><p class="small">
+              {{ item.name }} in {{ item.category_name }}
+            </p>
+            <br />
           {% endfor %}
         </div>
       </div>
