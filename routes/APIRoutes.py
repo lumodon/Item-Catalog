@@ -4,7 +4,7 @@ from database import session, Category, Item
 from flask_app import app
 
 
-@app.route('/categories/<int:category_id>/listing/JSON', methods=['GET']))
+@app.route('/categories/<int:category_id>/listing/JSON', methods=['GET'])
 def CategoryListingJSON(category_id):
     category = session.query(Category).filter_by(id=category_id).one()
     items = session.query(Item).filter_by(category_id=category_id).all()

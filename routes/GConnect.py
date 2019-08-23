@@ -32,7 +32,7 @@ def ShowLogin():
 
 
 # Copied (and modified) from Lesson 6 Step 5 GConnect
-# Citation: https://github.com/udacity/ud330/blob/master/Lesson2/step5/project.py
+# Citation: https://github.com/udacity/ud330/blob/master/Lesson2/step5/project.py # noqa
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
     output = '<h1>Done</h1>'
@@ -86,8 +86,8 @@ def gconnect():
     stored_access_token = login_session.get('access_token')
     stored_gplus_id = login_session.get('gplus_id')
     if stored_access_token is not None and gplus_id == stored_gplus_id:
-        response = make_response(json.dumps('Current user is already connected.'),
-                                 200)
+        response = make_response(json.dumps(
+            'Current user is already connected.'), 200)
         response.headers['Content-Type'] = 'application/json'
         return response
 
@@ -112,24 +112,28 @@ def gconnect():
     output += '!</h1>'
     output += '<img src="'
     output += login_session['picture']
-    output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
+    output += ' " style = "width: 300px; height: 300px;border-radius: 150px;'
+    '-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
+
     flash("you are now logged in as %s" % login_session['username'])
     return output
 
 
-# Citation: https://github.com/udacity/ud330/blob/master/Lesson2/step6/project.py
+# Citation: https://github.com/udacity/ud330/blob/master/Lesson2/step6/project.py # noqa
 @app.route('/gdisconnect', methods=['GET'])
 def gdisconnect():
     access_token = login_session.get('access_token')
     if access_token is None:
         print 'Access Token is None'
-        response = make_response(json.dumps('Current user not connected.'), 401)
+        response = make_response(json.dumps(
+            'Current user not connected.'), 401)
         response.headers['Content-Type'] = 'application/json'
         return response
     print 'In gdisconnect access token is %s', access_token
     print 'User name is: '
     print login_session['username']
-    url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % login_session['access_token']
+    url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % \
+        login_session['access_token']
     print 'url attempting: '
     print url
     h = httplib2.Http()
@@ -146,6 +150,7 @@ def gdisconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
     else:
-        response = make_response(json.dumps('Failed to revoke token for given user.', 400))
+        response = make_response(json.dumps(
+            'Failed to revoke token for given user.', 400))
         response.headers['Content-Type'] = 'application/json'
         return response

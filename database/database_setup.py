@@ -7,11 +7,12 @@ from sqlalchemy.orm import relationship, sessionmaker
 Base = declarative_base()
 
 
-class Category(Base):
+class Category(Base):  # noqa
     __tablename__ = 'category'
     name = Column(String(80), nullable=False)
     id = Column(Integer, primary_key=True)
     create_date = Column(DateTime, default=datetime.datetime.utcnow)
+
     @property
     def serialize(self):
         """Return object data in easily serializable format"""
@@ -22,7 +23,7 @@ class Category(Base):
         }
 
 
-class Item(Base):
+class Item(Base):  # noqa
     __tablename__ = 'item'
     name = Column(String(80), nullable=False)
     id = Column(Integer, primary_key=True)
@@ -31,6 +32,7 @@ class Item(Base):
     category_id = Column(Integer, ForeignKey('category.id'))
     create_date = Column(DateTime, default=datetime.datetime.utcnow)
     category = relationship(Category)
+
     @property
     def serialize(self):
         """Return object data in easily serializable format"""
@@ -42,6 +44,7 @@ class Item(Base):
             'category_id': self.category_id,
             'create_date': self.create_date.isoformat(),
         }
+
 
 # 'check_same_thread' fix for sqlalchemy bug caused by refreshing or switching
 # pages too quickly - Citation:

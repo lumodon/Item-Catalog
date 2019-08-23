@@ -39,7 +39,7 @@ def CategoryListing(category_id):
     if 'username' not in login_session:
         return redirect('/login')
     category = session.query(Category).filter_by(id=category_id).first()
-    if category == None:
+    if category is None:
         class placeholderCategory:
             id = category_id
             name = "No Categories Found with this ID: {}".format(category_id)
@@ -68,7 +68,7 @@ def ItemView(item_id):
     item_category = session.query(Category) \
         .filter_by(id=item.category_id).first()
     item.category_name = item_category.name
-    if item == None:
+    if item is None:
         class placeholderItem:
             id = item_id
             name = "No Categories Found with this ID: {}".format(item_id)
@@ -88,6 +88,7 @@ def ItemView(item_id):
         item=item,
     )
 
+
 # TODO: DRY call for Item & ItemEdit -- similar initialization
 @app.route('/items/<int:item_id>/edit', methods=['GET'])
 def ItemEdit(item_id):
@@ -96,7 +97,7 @@ def ItemEdit(item_id):
     item = session.query(Item).filter_by(id=item_id).first()
     item.category_name = session.query(Category) \
         .filter_by(id=item.category_id).first().name
-    if item == None:
+    if item is None:
         class placeholderItem:
             id = item_id
             name = "No Categories Found with this ID: {}".format(item_id)
