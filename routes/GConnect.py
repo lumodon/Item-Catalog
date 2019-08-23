@@ -23,7 +23,7 @@ def Redirect():
 
 
 # Create anti-forgery state token
-@app.route('/login')
+@app.route('/login', methods=['GET'])
 def ShowLogin():
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
                     for x in xrange(32))
@@ -118,7 +118,7 @@ def gconnect():
 
 
 # Citation: https://github.com/udacity/ud330/blob/master/Lesson2/step6/project.py
-@app.route('/gdisconnect')
+@app.route('/gdisconnect', methods=['GET'])
 def gdisconnect():
     access_token = login_session.get('access_token')
     if access_token is None:

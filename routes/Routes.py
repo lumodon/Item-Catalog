@@ -34,7 +34,7 @@ def favicon():
         mimetype='image/vnd.microsoft.icon')
 
 
-@app.route('/categories/<int:category_id>/')
+@app.route('/categories/<int:category_id>/', methods=['GET'])
 def CategoryListing(category_id):
     if 'username' not in login_session:
         return redirect('/login')
@@ -60,7 +60,7 @@ def CategoryListing(category_id):
     )
 
 
-@app.route('/items/<int:item_id>')
+@app.route('/items/<int:item_id>', methods=['GET'])
 def ItemView(item_id):
     if 'username' not in login_session:
         return redirect('/login')
@@ -89,7 +89,7 @@ def ItemView(item_id):
     )
 
 # TODO: DRY call for Item & ItemEdit -- similar initialization
-@app.route('/items/<int:item_id>/edit')
+@app.route('/items/<int:item_id>/edit', methods=['GET'])
 def ItemEdit(item_id):
     if 'username' not in login_session:
         return redirect('/login')
@@ -117,7 +117,7 @@ def ItemEdit(item_id):
     )
 
 
-@app.route('/items/create')
+@app.route('/items/create', methods=['GET'])
 def ItemCreate():
     if 'username' not in login_session:
         return redirect('/login')
@@ -131,7 +131,7 @@ def ItemCreate():
     )
 
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def Landing():
     categories = session.query(Category).all()
     items = session.query(Item) \

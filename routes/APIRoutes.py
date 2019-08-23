@@ -4,7 +4,7 @@ from database import session, Category, Item
 from flask_app import app
 
 
-@app.route('/categories/<int:category_id>/listing/JSON')
+@app.route('/categories/<int:category_id>/listing/JSON', methods=['GET']))
 def CategoryListingJSON(category_id):
     category = session.query(Category).filter_by(id=category_id).one()
     items = session.query(Item).filter_by(category_id=category_id).all()
@@ -24,8 +24,7 @@ def ItemSave(item_id):
         return jsonify(message=update_result, response='success')
 
 
-@app.route('/items/create',
-           methods=['POST'])
+@app.route('/items/create', methods=['POST'])
 def ItemCreateAjax():
     if 'username' not in login_session:
         abort(401)
@@ -44,8 +43,7 @@ def ItemCreateAjax():
         return jsonify(message=create_result, response='success')
 
 
-@app.route('/items/<int:item_id>/delete',
-           methods=['DELETE'])
+@app.route('/items/<int:item_id>/delete', methods=['POST'])
 def ItemDelete(item_id):
     if 'username' not in login_session:
         abort(401)
