@@ -3,7 +3,6 @@
 * Description of project
 
 ## Installation and Setup
-
 Prerequisites:  
 Ensure the following applications are accessible from your PATH variable  
 1. First you'll need VirtualBox installed on your machine. Find your operating system and install [Virtual Box](https://www.virtualbox.org/wiki/Downloads)
@@ -53,6 +52,11 @@ For example:
 * Google Signout: https://developers.google.com/identity/sign-in/web/sign-in#before_you_begin
 * Alternative Signin to get around `googleUser.getBasicProfile()` not working: https://stackoverflow.com/questions/31331428/how-to-call-getbasicprofile-of-google-to-google-signin-on-only-button-click
 * Isoformat method for datetime serialization: https://stackoverflow.com/questions/11875770/how-to-overcome-datetime-datetime-not-json-serializable
+
+## Notes:
+* `# noqa` added to comments with urls that go over 79 character limit for ease of access
+* Also, for ease of testing - here is a quick reference to one of the links for the JSON routes:
+http://localhost:5001/categories/2/listing/JSON
 
 ## License
 
