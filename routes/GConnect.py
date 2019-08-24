@@ -105,6 +105,7 @@ def gconnect():
     login_session['username'] = data['name']
     login_session['picture'] = data['picture']
     login_session['email'] = data['email']
+    login_session['gplus_id'] = data['id']
 
     output = ''
     output += '<h1>Welcome, '

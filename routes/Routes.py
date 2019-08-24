@@ -1,29 +1,28 @@
 from flask import url_for, render_template, send_from_directory, redirect
-from database import session, Category, Item
 from flask_app import app
+from database import session, Category, Item
 
 from dateutil import parser
-from flask import session as login_session
+from datetime import datetime
 import string
 import json
 import os
-from datetime import datetime
 
+from utilities import login_required, populate_session
 
 CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
 
 
-def populate_session():
-    if 'username' in login_session:
-        # If no gplus id then use email
-        # If no email then hard fail with exception
-        return {
-            'token': login_session['username'],
-            'picture': login_session.get('picture', None),
-            'gplus_id': login_session.get('gplus_id', login_session['email'])
-        }
-    return {}
+def with_default(data_type, q_id, name):
+    query_data = session.query(data_type).filter_by(id=q_id).one_or_none()
+    if query_data is None:
+        class placeholder:
+            def __init__(self):
+                self.id = q_id
+                self.name = "No {} Found with this ID: {}".format(name, q_id)
+        return placeholder()
+    return query_data
 
 
 @app.route('/favicon.ico')
@@ -36,16 +35,9 @@ def favicon():
 
 @app.route('/categories/<int:category_id>/', methods=['GET'])
 def CategoryListing(category_id):
-    if 'username' not in login_session:
-        return redirect('/login')
-    category = session.query(Category).filter_by(id=category_id).first()
-    if category is None:
-        class placeholderCategory:
-            id = category_id
-            name = "No Categories Found with this ID: {}".format(category_id)
-        category = placeholderCategory
-    items = session.query(Item).filter_by(
-        category_id=category_id).all()
+    category = with_default(Category, q_id=category_id, name="Categories")
+    items = session.query(Item).filter_by(category_id=category_id).all()
+
     url_list = {
         'landing': url_for('Landing'),
     }
@@ -62,17 +54,10 @@ def CategoryListing(category_id):
 
 @app.route('/items/<int:item_id>', methods=['GET'])
 def ItemView(item_id):
-    if 'username' not in login_session:
-        return redirect('/login')
-    item = session.query(Item).filter_by(id=item_id).first()
+    item = with_default(Item, q_id=item_id, name="Items")
     item_category = session.query(Category) \
-        .filter_by(id=item.category_id).first()
+        .filter_by(id=item.category_id).one_or_none()
     item.category_name = item_category.name
-    if item is None:
-        class placeholderItem:
-            id = item_id
-            name = "No Categories Found with this ID: {}".format(item_id)
-        item = placeholderItem
     item.desc_display = [i for i in item.description.splitlines() if i != '']
 
     url_list = {
@@ -91,24 +76,18 @@ def ItemView(item_id):
     )
 
 
-# TODO: DRY call for Item & ItemEdit -- similar initialization
 @app.route('/items/<int:item_id>/edit', methods=['GET'])
+@login_required
 def ItemEdit(item_id):
-    if 'username' not in login_session:
-        return redirect('/login')
-    item = session.query(Item).filter_by(id=item_id).first()
+    item = with_default(Item, q_id=item_id, name="Items")
     item.category_name = session.query(Category) \
         .filter_by(id=item.category_id).first().name
-    if item is None:
-        class placeholderItem:
-            id = item_id
-            name = "No Categories Found with this ID: {}".format(item_id)
-        item = placeholderItem
+    categories = session.query(Category).all()
+
     url_list = {
         'landing': url_for('Landing'),
         'item': url_for('ItemView', item_id=item_id),
     }
-    categories = session.query(Category).all()
 
     return render_template(
         'itemEdit.html',
@@ -121,9 +100,8 @@ def ItemEdit(item_id):
 
 
 @app.route('/items/create', methods=['GET'])
+@login_required
 def ItemCreate():
-    if 'username' not in login_session:
-        return redirect('/login')
     categories = session.query(Category).all()
 
     return render_template(
@@ -140,17 +118,18 @@ def Landing():
     items = session.query(Item) \
         .order_by(Item.create_date.desc()).limit(10).all()
 
-    url_list = {
-        'create': url_for('ItemCreate'),
-    }
-
     def modifyDate(item):
         datetime_obj = parser.parse(item['create_date'])
         item['formatted_datetime'] = datetime_obj.strftime("%c")
         item['category_name'] = next(
             i for i in categories if i.id == item['category_id']).name
         return item
+
     modified_list = [modifyDate(i.serialize) for i in items]
+
+    url_list = {
+        'create': url_for('ItemCreate'),
+    }
 
     return render_template(
         'landing.html',
