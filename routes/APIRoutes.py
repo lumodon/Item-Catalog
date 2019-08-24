@@ -46,10 +46,10 @@ def ItemCreateAjax():
 
 @app.route('/items/<int:item_id>/delete', methods=['POST'])
 def ItemDelete(item_id):
+    item = session.query(Item).filter_by(id=item_id).one_or_none()
     if 'username' not in login_session:
         abort(401)
     else:
-        item = session.query(Item).filter_by(id=item_id).one()
         delete_result = session.delete(item)
         session.commit()
         return jsonify(
