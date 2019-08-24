@@ -73,6 +73,8 @@ def ItemView(item_id):
             id = item_id
             name = "No Categories Found with this ID: {}".format(item_id)
         item = placeholderItem
+    item.desc_display = [i for i in item.description.splitlines() if i != '']
+
     url_list = {
         'landing': url_for('Landing'),
         'edit': url_for('ItemEdit', item_id=item_id),

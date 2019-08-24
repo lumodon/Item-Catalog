@@ -41,9 +41,11 @@
               {{ item.category_name }}
             </a>
           </span>
-          {% for desc in [i for i in item.description.splitlines() if i != '' %}
-            <p>{{ desc }}</p>
-          {% endfor %}
+          <div class="description">
+            {% for desc in item.desc_display %}
+              <p>{{ desc }}</p>
+            {% endfor %}
+          </div>
         </div>
         {% if session_user['gplus_id'] in item.owner_id %}
           <div class="controls">
