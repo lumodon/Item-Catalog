@@ -41,7 +41,7 @@
               {{ item.category_name }}
             </a>
           </span>
-          {% for desc in item.description.splitlines() %}
+          {% for desc in [i for i in item.description.splitlines() if i != '' %}
             <p>{{ desc }}</p>
           {% endfor %}
         </div>
