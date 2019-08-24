@@ -21,6 +21,7 @@ def ItemSave(item_id):
         update_result = session.query(Item).filter_by(id=item_id).update({
             'description': data['description'],
             'name': data['name']})
+        session.commit()
         return jsonify(message=update_result, response='success')
 
 
@@ -50,6 +51,7 @@ def ItemDelete(item_id):
     else:
         item = session.query(Item).filter_by(id=item_id).one()
         delete_result = session.delete(item)
+        session.commit()
         return jsonify(
             message=delete_result,
             response='success')
