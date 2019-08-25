@@ -1,23 +1,34 @@
 class Toaster {
-  constructor({ toasterElement, duration }) {
+  constructor(duration) {
     this.messageBeingDisplayed = false
+    this.toastDuration = duration || 6000 /* TODO: need SASS for SSOT */
+
+    this._pageLoaded = false
     this._messageQueue = []
-    this._toaster = toasterElement
-    this._toasterText = toasterElement.querySelector('p')
     this._msgTimeout = null
     this._currentMessage = null
-    this.toastDuration = duration /* TODO: need SASS for SSOT */
 
     this._messageEnd = this._messageEnd.bind(this)
     this._handleQueue = this._handleQueue.bind(this)
     this._handleMessage = this._handleMessage.bind(this)
     this._recalculateSize = this._recalculateSize.bind(this)
 
-    // Add dynamic sizing
-    document.head.appendChild(document.createElement('style'))
-    this._styleSheet = document.styleSheets[document.styleSheets.length - 1]
-    this._recalculateSize()
-    window.addEventListener('resize', this._recalculateSize)
+    document.addEventListener('DOMContentLoaded', () => {
+      const toasterElement = document.createElement('div')
+      toasterElement.classList.add('toaster', 'hidden', 'toaster-offscreen')
+      toasterElement.appendChild(document.createElement('p'))
+      document.querySelector('.navbar').appendChild(toasterElement)
+
+      // Add dynamic sizing
+      document.head.appendChild(document.createElement('style'))
+      this._styleSheet = document.styleSheets[document.styleSheets.length - 1]
+
+      window.addEventListener('resize', this._recalculateSize)
+      this._pageLoaded = true
+      this._toaster = toasterElement
+      this._toasterText = toasterElement.querySelector('p')
+      this._recalculateSize()
+    })
   }
 
   pushMessage({ type, payload }) {
@@ -50,6 +61,9 @@ class Toaster {
   }
 
   _recalculateSize() {
+    if(!this._pageLoaded) {
+      return
+    }
     const { width, height } = getComputedStyle(this._toaster)
     const computedHalfWidth = Number(width.replace('px', '')) / 2
     const computedHeight = Number(height.replace('px', '')) + 20
@@ -81,6 +95,9 @@ class Toaster {
   }
 
   _handleMessage({ type, payload }) {
+    if(!this._pageLoaded) {
+      return
+    }
     this.messageBeingDisplayed = true
     const sCase = {
       error: () => {
@@ -122,6 +139,9 @@ class Toaster {
   }
 
   _handleQueue() {
+    if(!this._pageLoaded) {
+      return
+    }
     if (this._messageQueue.length > 0 && !this.messageBeingDisplayed) {
       this._currentMessage = this._messageQueue.shift()
       this._currentMessage()
@@ -129,13 +149,6 @@ class Toaster {
   }
 }
 
-let mainToaster
-document.addEventListener('DOMContentLoaded', () => {
-  const toasterEle = document.querySelector('.toaster')
-  mainToaster = new Toaster({
-    toasterElement: toasterEle,
-    duration: 4000
-  })
-})
+const mainToaster = new Toaster()
 
 export default mainToaster
