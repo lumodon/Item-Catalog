@@ -4,7 +4,7 @@
       window.flashMessages = JSON.parse('{{ messages|tojson }}')
       </script>
   {% endwith %}
-  {% if session_user and 'username' in session_user %}
+  {% if session_user %}
     <script>
       window.sessionUserData = JSON.parse('{{ session_user|tojson }}')
     </script>
