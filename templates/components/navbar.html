@@ -1,11 +1,18 @@
 <div class="navbar">
   {% with messages = get_flashed_messages() %}
     <script>
-      // Add to window object to absolutely ensure variables are global
       window.flashMessages = JSON.parse('{{ messages|tojson }}')
+      </script>
+  {% endwith %}
+  {% if session_user and 'username' in session_user %}
+    <script>
       window.sessionUserData = JSON.parse('{{ session_user|tojson }}')
     </script>
-  {% endwith %}
+  {% else %}
+    <script>
+      window.sessionUserData = null
+    </script>
+  {% endif %}
   <script src="/static/toaster.js" type="module"></script>
   <script src="/static/navbar.js" type="module"></script>
   <a class="navbar-link" href="/">Catalog</a>
@@ -22,13 +29,19 @@
       <script>
         function signOut() {
           var auth2 = gapi.auth2.getAuthInstance()
-          auth2.signOut().then(() => {
-            console.log('User signed out.')
-            fetch('/gdisconnect')
-              .then(() => {
-                window.location.reload(true)
-              })
-          })
+          auth2.signOut()
+            .then(() => {
+              console.log('User signed out.')
+              return fetch('/gdisconnect').then(res => res.json())
+            })
+            .then((res) => {
+              console.log('\nres:', res)
+              auth2.disconnect()
+              window.location.reload(true)
+            })
+            .catch(err => {
+              console.error(err)
+            })
         }
         function onLoad() {
           gapi.load('auth2', () => {

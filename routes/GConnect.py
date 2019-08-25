@@ -131,17 +131,18 @@ def gdisconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
     print 'In gdisconnect access token is %s', access_token
-    print 'User name is: '
-    print login_session['username']
-    url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % \
-        login_session['access_token']
+    url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % access_token
     print 'url attempting: '
     print url
     h = httplib2.Http()
-    result = h.request(url, 'GET')[0]
-    print 'result is '
-    print result
-    if result['status'] == '200':
+    tresult = h.request(url, 'GET')
+    result = tresult[0]
+    try:
+        error = json.loads(tresult[1])['error_description']
+    except:
+        error = None
+    if (error == 'Token expired or revoked' or result['status'] == '200'):
+        print 'success'
         del login_session['access_token']
         del login_session['gplus_id']
         del login_session['username']
@@ -151,7 +152,7 @@ def gdisconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
     else:
-        response = make_response(json.dumps(
-            'Failed to revoke token for given user.', 400))
+        print 'failed'
+        response = make_response(json.dumps(tresult), 400)
         response.headers['Content-Type'] = 'application/json'
         return response

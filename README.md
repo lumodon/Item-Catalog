@@ -53,11 +53,15 @@ For example:
 * Alternative Signin to get around `googleUser.getBasicProfile()` not working: https://stackoverflow.com/questions/31331428/how-to-call-getbasicprofile-of-google-to-google-signin-on-only-button-click
 * Isoformat method for datetime serialization: https://stackoverflow.com/questions/11875770/how-to-overcome-datetime-datetime-not-json-serializable
 * APIRoutes uses `make_response` instead of abort with arguments due to error listed in this link with solution: https://stackoverflow.com/questions/41319058/typeerror-response-36-bytes-200-ok-is-not-json-serializable
+* Fixing signout not fully disconnecting (in navbar.html): https://stackoverflow.com/questions/34515499/google-api-auth2-signout-not-working
 
 ## Notes:
 * `# noqa` added to comments with urls that go over 79 character limit for ease of access
 * Also, for ease of testing - here is a quick reference to one of the links for the JSON routes:
 http://localhost:5001/categories/2/listing/JSON
+
+## Todo:
+Refactor navbar - seperate the *actual* navbar portion from common modules such as signout.
 
 ## License
 
