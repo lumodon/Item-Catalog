@@ -129,4 +129,13 @@ class Toaster {
   }
 }
 
-export default Toaster
+let mainToaster
+document.addEventListener('DOMContentLoaded', () => {
+  const toasterEle = document.querySelector('.toaster')
+  mainToaster = new Toaster({
+    toasterElement: toasterEle,
+    duration: 4000
+  })
+})
+
+export default mainToaster

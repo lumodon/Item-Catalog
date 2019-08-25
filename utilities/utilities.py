@@ -1,5 +1,5 @@
 from functools import wraps
-from flask import flash, redirect
+from flask import flash, redirect, abort, jsonify, make_response
 from flask import session as login_session
 
 
@@ -25,3 +25,8 @@ def populate_session():
     return {
         'gplus_id': 'None',
     }
+
+
+def render_error(msg, code=400):
+    flash(msg)
+    return make_response(jsonify({"status": "error", "message": msg}), code)

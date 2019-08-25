@@ -52,6 +52,7 @@ For example:
 * Google Signout: https://developers.google.com/identity/sign-in/web/sign-in#before_you_begin
 * Alternative Signin to get around `googleUser.getBasicProfile()` not working: https://stackoverflow.com/questions/31331428/how-to-call-getbasicprofile-of-google-to-google-signin-on-only-button-click
 * Isoformat method for datetime serialization: https://stackoverflow.com/questions/11875770/how-to-overcome-datetime-datetime-not-json-serializable
+* APIRoutes uses `make_response` instead of abort with arguments due to error listed in this link with solution: https://stackoverflow.com/questions/41319058/typeerror-response-36-bytes-200-ok-is-not-json-serializable
 
 ## Notes:
 * `# noqa` added to comments with urls that go over 79 character limit for ease of access
