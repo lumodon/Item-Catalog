@@ -7,22 +7,32 @@
   <meta name="google-signin-scope" content="profile email">
   <meta name="google-signin-client_id" content="{{CLIENT_ID}}">
   <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
-</head>
+  <link rel="stylesheet" href="/static/styles.css" />
+  <style>
+    .hero {
+      margin: 100px auto 0 auto;
+      width: fit-content;
+    }
+  </style>
   <title>Login</title>
 </head>
 <body>
-  <a id="logout" href="javascript:void(0)">Logout</a>
-  <div id="signinButton">
-    <div class="g-signin2"
-      data-onsuccess="signInCallback"
-      data-scope="openid email"
-      data-accesstype="offline"
-      data-approvalprompt="force"
-      data-theme="dark">
+  {% include 'components/navbar.html' %}
+  <div class="container">
+    <div class="hero">
+      <div id="signinButton">
+        <div class="g-signin2"
+          data-onsuccess="signInCallback"
+          data-scope="openid email"
+          data-accesstype="offline"
+          data-approvalprompt="force"
+          data-theme="dark">
+        </div>
+        <!-- <div id="google-signin-button"></div> -->
+      </div>
+      <div id="result"></div>
     </div>
-    <!-- <div id="google-signin-button"></div> -->
   </div>
-  <div id="result"></div>
   <script>
     function signInCallbackOutdated(googleUser) {
       // Useful data for your client-side scripts:
@@ -53,20 +63,6 @@
           console.log(res)
         })
     }
-
-    function signOut() {
-      const auth2 = gapi.auth2.getAuthInstance()
-      auth2.signOut().then(() => {
-        document.querySelector('#signinButton').style.display = 'block'
-        fetch('/gdisconnect')
-      })
-    }
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelector('#logout').addEventListener('click', (e) => {
-        e.preventDefault()
-        signOut()
-      })
-    })
 
     function onLoad() {
       gapi.load('auth2,signin', () => {
