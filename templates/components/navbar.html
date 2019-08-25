@@ -31,11 +31,9 @@
           var auth2 = gapi.auth2.getAuthInstance()
           auth2.signOut()
             .then(() => {
-              console.log('User signed out.')
               return fetch('/gdisconnect').then(res => res.json())
             })
             .then((res) => {
-              console.log('\nres:', res)
               auth2.disconnect()
               window.location.reload(true)
             })

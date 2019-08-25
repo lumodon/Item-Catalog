@@ -1,4 +1,5 @@
 import { fetchData, validateContent } from '/static/utilities.js'
+import mainToaster from '/static/toaster.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   // Handle save
@@ -23,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
               }
             })
         } else {
-          toaster.pushMessage({
+          mainToaster.pushMessage({
             type: 'error',
             payload: {...validation, interrupt: true}
           })

@@ -46,7 +46,6 @@
     }
 
     function signInCallback(authResult) {
-      console.log('callback made: ', authResult)
       if(authResult && authResult.code) {
         const resultElement = document.querySelector('#result')
         document.querySelector('#signinButton').style.display = 'none'
@@ -60,12 +59,12 @@
           .then(result => {
             if(result) {
               resultElement.innerHTML =
-                `Login Successful!<br/>${JSON.stringify(result,0,2)}<br/>Redirecting...`
+                `Login Successful!<br /><br />Redirecting...`
               setTimeout(() => {
                 window.location.href = '/'
               }, 4000)
             } else if(authResult.error) {
-              console.log('There was an error: ', authResult.error)
+              // TODO: move script to module, import toaster, pushMsg error
             }
           })
           .catch(err => {

@@ -1,4 +1,5 @@
 import { fetchData, validateContent } from '/static/utilities.js'
+import mainToaster from '/static/toaster.js'
 
 // TODO: DRY itemEdit.js & edit.js
 document.addEventListener('DOMContentLoaded', () => {
@@ -24,7 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(res => res.json())
         .then(serverResponse => {
           if(serverResponse.response == 'success') {
-            console.log('Saved successfully')
+            mainToaster.pushMessage({
+              type: 'notification',
+              payload: { 'message': msg }
+            })
 
             // Remove 'edit' from end of url
             const currentPath = window.location.pathname.split('/')
@@ -35,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         })
     } else {
-      toaster.pushMessage({
+      mainToaster.pushMessage({
         type: 'error',
         payload: {...validation, interrupt: true}
       })
