@@ -1,4 +1,4 @@
-export function validateContent(container) {
+export function validateContent(container, valEle) {
   const validateWithError = err => ({
     valid: false,
     component: valEle,
@@ -7,7 +7,7 @@ export function validateContent(container) {
 
   for (const valEle of container.querySelectorAll('.value')) {
     if (!valEle.value) {
-      return validateWithError('Empty input')
+      return validateWithError('Empty input', valEle)
     }
   }
   return { valid: true }

@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'message': msg,
     }})
   }
-  const sessionUser = sessionUserData || {
+  window.sessionUser = sessionUserData || {
     'gplus_id': null,
     'picture': null,
     'token': null,

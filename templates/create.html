@@ -24,7 +24,7 @@
             ></textarea>
           </div>
           <select class="value category" name="select" id="category" required>
-            <option selected disabled hidden>Select a category...</option>
+            <option selected disabled hidden value="">Select a category...</option>
             {% for category in categories %}
               <option value="{{ category.id }}">{{ category.name }}</option>
             {% endfor %}

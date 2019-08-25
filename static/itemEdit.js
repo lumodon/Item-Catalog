@@ -25,11 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(res => res.json())
         .then(serverResponse => {
           if(serverResponse.response == 'success') {
-            mainToaster.pushMessage({
-              type: 'notification',
-              payload: { 'message': msg }
-            })
-
             // Remove 'edit' from end of url
             const currentPath = window.location.pathname.split('/')
             const redirectHref = currentPath.slice(0,currentPath.length-1)

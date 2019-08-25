@@ -17,14 +17,16 @@ def CategoryListingJSON(category_id):
            methods=['POST'])
 @login_required
 def ItemSave(item_id):
-    item = session.query(Item).filter_by(id=item_id).one_or_none()
+    s_item = session.query(Item).filter_by(id=item_id)
+    item = s_item.one_or_none()
+
     if item is None:
         return render_error("Item id is invalid", 400)
     if (login_session['gplus_id'] != item.owner_id):
         return render_error("You are not allowed to edit this item", 403)
     else:
         data = request.get_json(cache=False)
-        update_result = item.update({
+        update_result = s_item.update({
             'description': data['description'],
             'name': data['name']})
         session.commit()
