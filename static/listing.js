@@ -4,7 +4,7 @@ for (const deleteLink of document.querySelectorAll('.delete-btn')) {
   deleteLink.addEventListener('click', event => {
     event.preventDefault()
     fetch(deleteLink.dataset['url'], {
-      method: 'DELETE',
+      method: 'POST',
     })
       .then(res => res.json())
       .then(res => {
