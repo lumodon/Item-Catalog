@@ -135,7 +135,7 @@ def gdisconnect():
     result = tresult[0]
     try:
         error = json.loads(tresult[1])['error_description']
-    except:
+    except ValueError:
         error = None
     if (error == 'Token expired or revoked' or result['status'] == '200'):
         del login_session['access_token']
