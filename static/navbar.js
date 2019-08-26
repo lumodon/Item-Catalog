@@ -9,7 +9,21 @@ document.addEventListener('DOMContentLoaded', () => {
       for(const controlsEle of controlsEles) {
         controlsEle.classList.add('hidden')
       }
-      signOut()
+      logoutBtn.innerText = 'Logging Out...'
+
+      const auth2 = gapi.auth2.getAuthInstance()
+      auth2.signOut()
+        .then(() => {
+          return fetch('/gdisconnect').then(res => res.json())
+        })
+        .then(() => {
+          auth2.disconnect()
+          window.location.reload(true)
+          loggingOut = true
+        })
+        .catch(err => {
+          console.error(err)
+        })
     })
   }
 

@@ -35,23 +35,6 @@
             })
           })
         }
-
-        function signOut() {
-          var auth2 = gapi.auth2.getAuthInstance()
-          auth2.signOut()
-            .then(() => {
-              return fetch('/gdisconnect').then(res => res.json())
-            })
-            .then((res) => {
-              auth2.disconnect()
-              window.location.reload(true)
-            })
-            .catch(err => {
-              console.error(err)
-            })
-        }
-
-        window.signOut = signOut
       </script>
     {% endif %}
       <!-- Citation: https://developers.google.com/identity/sign-in/web/sign-in#before_you_begin -->
