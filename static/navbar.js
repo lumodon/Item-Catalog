@@ -3,8 +3,14 @@ import mainToaster from '/static/toaster.js'
 document.addEventListener('DOMContentLoaded', () => {
   const logoutBtn = document.querySelector('#logout')
   if(logoutBtn) {
-    logoutBtn.addEventListener('click', (e) => {
+    const logoutListener = logoutBtn.addEventListener('click', (e) => {
       e.preventDefault()
+
+      // Prevent repeated logout attempts before callback completes
+      logoutBtn.removeEventListener('click', logoutListener)
+
+      // Prevent calls to protected routes
+      // until signout completes. (prevent broken pipe error)
       const controlsEles = Array.from(document.querySelectorAll('.controls'))
       for(const controlsEle of controlsEles) {
         controlsEle.classList.add('hidden')

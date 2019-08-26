@@ -9,7 +9,7 @@ def login_required(f):
         if 'username' in login_session:
             return f(*args, **kwargs)
         else:
-            flash("You are not allowed to access there")
+            flash("Access Not Allowed")
             return redirect('/login')
     return decorated_function
 
