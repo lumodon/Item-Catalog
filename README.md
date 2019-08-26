@@ -61,7 +61,8 @@ For example:
 http://localhost:5001/categories/2/listing/JSON
 
 ## Todo:
-Refactor navbar - seperate the *actual* navbar portion from common modules such as signout.
+1. Refactor navbar - seperate the *actual* navbar portion from common modules such as signout.
+1. When signing out from within a safe page, don't push toaster notification of not being allowed on that page.
 
 ## License
 

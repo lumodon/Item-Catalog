@@ -1,6 +1,18 @@
 import mainToaster from '/static/toaster.js'
 
 document.addEventListener('DOMContentLoaded', () => {
+  const logoutBtn = document.querySelector('#logout')
+  if(logoutBtn) {
+    logoutBtn.addEventListener('click', (e) => {
+      e.preventDefault()
+      const controlsEles = Array.from(document.querySelectorAll('.controls'))
+      for(const controlsEle of controlsEles) {
+        controlsEle.classList.add('hidden')
+      }
+      signOut()
+    })
+  }
+
   for (const msg of flashMessages) {
     mainToaster.pushMessage({type: 'notification', payload: {
       'message': msg,

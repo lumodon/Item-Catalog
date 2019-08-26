@@ -49,6 +49,8 @@
       if(authResult && authResult.code) {
         const resultElement = document.querySelector('#result')
         document.querySelector('#signinButton').style.display = 'none'
+        resultElement.innerHTML =
+          `Logging in...`
         fetch('/gconnect?state={{STATE}}', {
           'method': 'POST',
           'body': authResult.code,

@@ -7,7 +7,7 @@ body {
   background-color: #eaead2;
 }
 .hidden {
-  display: none;
+  display: none !important;
 }
 .navbar {
   align-items: center;
