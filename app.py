@@ -18,4 +18,6 @@ with app.test_request_context():
 if __name__ == '__main__':
     app.debug = True
     app.secret_key = 'non-production-ready-secret'
+    print '\n\n**** FOR TESTING: ****'
+    print 'http://localhost:5001/\n**********************\n'
     app.run(host='0.0.0.0', port=5001)

@@ -26,7 +26,7 @@ Continue running the following commands:
  $ vagrant ssh
  $ git clone https://github.com/lumodon/item-catalog.git /vagrant/lumodon-catalog
  $ cd $_
- $ ./init.sh
+ $ source ./init.sh
 ```
 
 *Setup Static Assets*  
