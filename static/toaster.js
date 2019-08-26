@@ -23,8 +23,8 @@ class Toaster {
       document.head.appendChild(document.createElement('style'))
       this._styleSheet = document.styleSheets[document.styleSheets.length - 1]
 
-      window.addEventListener('resize', this._recalculateSize)
       this._pageLoaded = true
+      window.addEventListener('resize', this._recalculateSize)
       this._toaster = toasterElement
       this._toasterText = toasterElement.querySelector('p')
       this._recalculateSize()
@@ -103,16 +103,13 @@ class Toaster {
       error: () => {
         this._toaster.classList.add('warning')
         this._toasterText.innerText = `Error: ${payload.error}`
-        this._recalculateSize()
       },
       notification: () => {
         this._toaster.classList.remove('warning')
         this._toasterText.innerText = payload.message
-        this._recalculateSize()
       },
       default: () => {
         this._toasterText.innerText = ''
-        this._recalculateSize()
         throw new Error('Error - invalid toaster message case')
       },
     }
@@ -123,6 +120,7 @@ class Toaster {
     }
     this._toaster.classList.remove('hidden', 'toaster-offscreen')
     this._toaster.classList.add('slidein', 'toaster-shown')
+    this._recalculateSize()
     this._msgTimeout = setTimeout(this._messageEnd, this.toastDuration)
   }
 
