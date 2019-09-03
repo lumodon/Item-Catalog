@@ -1,8 +1,62 @@
 # Item Catalog
+Readme broken into two parts.  
+[Part 1](#production-server) includes production server information.  
+[Part 2](#project) includes information specifically pertaining to this Item Catalog project itself.  
 
-* Description of project
+# Production Server
+## Connection Information
+### For Udacity Grader
+#### Information
+Using tmux to run detatched `uwsgi --ini /home/ubuntu/projects/Item-Catalog/flaskproject.ini`  
+Use `tmux list-sessions` and `tmux attach` to view multiplexer sessions. Learn more at https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/  
+  
+IP Address: 18.236.84.93  
+SSH Port: 2200  
+Username Provided: "grader"  
 
-## Installation and Setup
+#### Instructions To Connect
+1. Follow special instructions provided in "Extra Notes" section of project submission
+2. Connect with following command:
+```sh
+ssh -i "grader_rsa" -p 2200 grader@18.236.84.93
+```
+
+### For all others
+Contact me at directly via my email and I can create a user for you
+
+## Server Configurations
+* Added nginx list: `sudo add-apt-repository ppa:nginx/stable`
+* Installed nginx: `sudo apt-get install nginx`
+* Installed dependencies: `sudo apt-get install libpq-dev python-dev`
+* Install uWSGI for nginx: `pip install uwsgi`
+* Followed nginx wsgi tutorial: https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uswgi-and-nginx-on-ubuntu-18-04#step-6-%E2%80%94-configuring-nginx-to-proxy-requests
+* Fixed errors from previous tutorial being outdated - [see here](#uwsgi-and-nginx-configurations)
+* Created uWSGI & nginx configurations (See `/var/www/flaskapp/` and `/home/ubuntu/projects/Item-Catalog/flaskproject.ini`)
+* Start nginx: `sudo /etc/init.d/nginx start`
+* Root user disabled via nologin shell in `/etc/passwd`
+* UFW ubuntu firewall enabled
+* UFW allows all outgoing and denies all incoming with following exceptions:
+    * UFW allows 2200/tcp incoming (v4 & v6)
+    * UFW allows 123/udp incoming (v4 & v6)
+    * UFW allows 80/tcp incoming (v4 & v6)
+* /etc/ssh/sshd_config modified as follows:
+    * SSH port set to 2200 (instead of 22)
+* Lightsail dashboard firewall settings changed as follows:
+    * AWS firewall allows custom ports 2200 TCP and 123 UDP
+    * Default settings already allowed port 80 - left alone
+* User "grader" added
+    * `.ssh` folder added to grader's home directory
+    * RSA public key added to grader's `authorized_keys` file
+    * grader added to "sudo" group
+    * grader settings file added to `sudoers.d`
+* `/etc/nologin.txt` added to give explicit message for failed login
+* Package lists and packages themselves updated
+* `Finger` and `chef-local` installed
+
+See `/home/ubuntu/.bash_history` for more details
+
+# Project
+## Project Installation and Setup
 Prerequisites:  
 Ensure the following applications are accessible from your PATH variable  
 1. First you'll need VirtualBox installed on your machine. Find your operating system and install [Virtual Box](https://www.virtualbox.org/wiki/Downloads)
@@ -46,7 +100,7 @@ For example:
 
 `app.py` is the starting point for the app  
 
-## References Useds
+## References Used
 
 * Safe filter for passing JSON in render templates: https://www.pythonanywhere.com/forums/topic/1627/
 * Google Signout: https://developers.google.com/identity/sign-in/web/sign-in#before_you_begin
@@ -54,6 +108,20 @@ For example:
 * Isoformat method for datetime serialization: https://stackoverflow.com/questions/11875770/how-to-overcome-datetime-datetime-not-json-serializable
 * APIRoutes uses `make_response` instead of abort with arguments due to error listed in this link with solution: https://stackoverflow.com/questions/41319058/typeerror-response-36-bytes-200-ok-is-not-json-serializable
 * Fixing signout not fully disconnecting (in navbar.html): https://stackoverflow.com/questions/34515499/google-api-auth2-signout-not-working
+* Disable root user: https://www.tecmint.com/disable-root-login-in-linux/
+* psycop error fixed by installing dependencies: `sudo apt-get install libpq-dev python-dev` from: https://stackoverflow.com/questions/11618898/pg-config-executable-not-found
+
+#### uWSGI and nginx configurations
+
+* Tutorial 1 - almost worked but was for Ubuntu 13.04: https://vladikk.com/2013/09/12/serving-flask-with-nginx-on-ubuntu/
+* Docs for uWSGI to debug (no useful information): https://uwsgi-docs.readthedocs.io/en/latest/PythonModule.html
+* Tutorial 1 configuration fix which failed: https://serverfault.com/questions/775965/wiring-uwsgi-to-work-with-django-and-nginx-on-ubuntu-16-04
+* Tutorial 2 which failed: https://www.gab.lc/articles/flask-nginx-uwsgi/
+* Not loading error which lead to modification of app.py to not wrap everything inside name = main check: https://stackoverflow.com/questions/12030809/flask-and-uwsgi-unable-to-load-app-0-mountpoint-callable-not-found-or-im
+* Permissions error which lead to .sock file chmod 660 to 666 fix: https://stackoverflow.com/questions/23948527/13-permission-denied-while-connecting-to-upstreamnginx
+* Tutorial 3: https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uswgi-and-nginx-on-ubuntu-18-04#step-6-%E2%80%94-configuring-nginx-to-proxy-requests
+
+And many MANY other stackoverflows etc.
 
 ## Notes:
 * `# noqa` added to comments with urls that go over 79 character limit for ease of access
