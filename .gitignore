@@ -1,6 +1,7 @@
 _DEV/
 .env
 *.pyc
+venv/
 database/catalog.db-journal
 database/catalog.db
 static/favicon.ico
