@@ -7,10 +7,15 @@ Readme broken into two parts.
 ## Connection Information
 ### For Udacity Grader
 #### Information
+
+*URL* http://dev.leafsoj.com
+
 Using tmux to run detatched `uwsgi --ini /home/ubuntu/projects/Item-Catalog/flaskproject.ini`  
-Use `tmux list-sessions` and `tmux attach` to view multiplexer sessions. Learn more at https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/  
+Use `tmux -S /tmp/shareds attach -t shared -r` to view shared multiplexer session. Learn more at https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/  
+Shared session learend from: https://www.howtoforge.com/sharing-terminal-sessions-with-tmux-and-screen  
   
-IP Address: 18.236.84.93  
+DNS: dev.leafsoj.com  
+IP Address: 34.214.24.34  
 SSH Port: 2200  
 Username Provided: "grader"  
 
@@ -18,13 +23,15 @@ Username Provided: "grader"
 1. Follow special instructions provided in "Extra Notes" section of project submission
 2. Connect with following command:
 ```sh
-ssh -i "grader_rsa" -p 2200 grader@18.236.84.93
+ssh -i "grader_rsa" -p 2200 grader@dev.leafsoj.com
 ```
 
 ### For all others
 Contact me at directly via my email and I can create a user for you
 
 ## Server Configurations
+* Added `dev.leafsoj.com` to validated domains in google console with TXT record
+* Generated Static IP and associated with AWS Route 53 DNS A record
 * Added nginx list: `sudo add-apt-repository ppa:nginx/stable`
 * Installed nginx: `sudo apt-get install nginx`
 * Installed dependencies: `sudo apt-get install libpq-dev python-dev`
